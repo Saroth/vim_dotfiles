@@ -1,0 +1,12 @@
+### NeoVim
+*.swp
+*.swo
+*.spec
+
+### Plugin
+plug.vim
+plugged/
+
+.exvim.*/
+*.vimproject
+
