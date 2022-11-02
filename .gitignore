@@ -4,7 +4,6 @@
 *.spec
 
 ### Plugin
-plug.vim
 plugged/
 
 .exvim.*/
