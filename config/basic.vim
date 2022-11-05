@@ -12,7 +12,7 @@
 
     colorscheme clearblack " 配色方案
     set hlsearch " 匹配内容高亮显示
-    set nocursorline " 不高亮显示当前行
+    set nocursorline " 不高亮显示当前行. 会覆盖折叠行高亮
     set nocursorcolumn " 不高亮显示当前列
     set termguicolors " 终端界面开启真彩
     set matchpairs=(:),[:],{:} " 高亮显示匹配括号
@@ -47,11 +47,11 @@
     set laststatus=2 " 总是显示状态栏
     let slWinType       = '%q' " 窗口类型. 如: [Quickfix List], [Location List]
     let slFileName      = '%f' " 文件名
-    let slFileStatus    = '%2*%w%h%r%m%*' " 文件状态. [Preview][Help][RO][-]. 高亮User2
+    let slFileStatus    = '%1*%w%h%r%m%*' " 文件状态. [Preview][Help][RO][-]. 高亮User2
     let slFileType      = '%y' " 文件类型
     let slFileEncoding  = ' %{(&fenc == ""?&enc:&fenc).(&bomb?",BOM":"")}' " 文件编码
     let slFileFormat    = ' %{&fileformat}' " 文件格式. dos/unix/mac
-    let slFilePosition  = ' %4*%l/%L,%v-0x%02B%*' " 光标信息. 高亮User4
+    let slFilePosition  = ' %2*%l/%L,%v-0x%02B%*' " 光标信息. 高亮User4
     " 超出可显空间时, 文件信息左侧截断
     let slString        = '%<'.slWinType.slFileName.slFileStatus
                 \.' %='.slFileType.slFileEncoding.slFilePosition

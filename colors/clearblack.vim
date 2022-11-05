@@ -1,212 +1,207 @@
 " Description: Scheme: Clear Black. For Vim & NeoVim, GUI & Term
-"      ___  _                       ___   _              _
-"    / __// /   __   _   __ _      / _ \/ /   _    ___ / /_
-"   / /  / /  / _ \/  \ /  _/     /  __/ /  /  \ / __//  _/
-"  / /_ / /__/  __/ / // /       / _  / /__/ / // /_ /  \
+"      ___  _                        __   _              _
+"    / __// /   __   _    _ _      / _ \/ /   _    ___ / /_
+"   / /  / /  / _ \/  \ / /_/     /  __/ /  /  \ / __//  _/
+"  / /_ / /__/  __/ O // /       / _  / /__/ O // /_ /  \_
 "  \___/____/\___/\___/_/       /____/____/\___/\___/_/\_/
 
-" ____{ prepare
-
-" Set 'background' back to the default.  The value can't always be estimated
-" and is then guessed.
-hi clear Normal
-set background=dark
-" set background=light
-
-" Remove all existing highlighting and set the defaults.
+" { Init
 hi clear
+set background=dark
+let g:colors_name = "clearblack"
 
-" Load the syntax highlighting defaults, if it's enabled.
 if exists("syntax_on")
   syntax reset
 endif
 
-let g:colors_name = "clearblack"
+let s:background = v:null " 通用背景色
+let s:emphasis = v:null " 通用字体格式
+function! s:HL(group, fg, ...)
+    let bg = s:background is v:null ? s:none : s:background
+    if a:0 > 0
+        let bg = a:1
+    endif
+    let em = s:emphasis is v:null ? s:emphasis_none : s:emphasis
+    if a:0 > 1 && strlen(a:2)
+        let em = a:2
+    endif
+    let hi_cfg = [ 'highlight', a:group,
+                \'guifg=' . a:fg[0], 'ctermfg=' . a:fg[1],
+                \'guibg=' . bg[0], 'ctermbg=' . bg[1],
+                \'gui=' . em, 'cterm=' . em]
+    let hi_str = join(hi_cfg, ' ')
+    " echo hi_str
+    execute hi_str
+endfunction
 
-" }_____________________________________________________________________________
-" ____{ UI colors define
-" 全局默认定义  ==== Global default setting ====
-hi Normal       guifg=#ffffff guibg=#262626             ctermfg=231 ctermbg=235
+let s:none = ['NONE', 'NONE']
+let s:emphasis_none = 'NONE,'
 
-" 特殊字符
-hi SpecialKey   guifg=#606060                           ctermfg=241
+let s:white = ['#ffffff', 15]
+let s:lightgray1 = ['#c0c0c0', 7]
+let s:lightgray0 = ['#a8a8a8', 248]
+let s:gray = ['#808080', 8]
+let s:darkgray0 = ['#606060', 241]
+let s:darkgray1 = ['#444444', 238]
+let s:darkgray2 = ['#303030', 236]
+let s:darkgray3 = ['#262626', 235]
+let s:darkgray4 = ['#121212', 233]
+let s:black = ['#000000', 0]
 
-" 文本里实际不存在的字符: '~','@','<',...
-hi NonText      gui=bold guifg=#444444                  cterm=bold ctermfg=238
+let s:red = ['#ff0000', 196]
+let s:darkred0 = ['#5f0000', 52]
+let s:gold = ['#ffdf00', 220]
+let s:orange2 = ['#dfaf5f', 179]
+let s:orange3 = ['#dfdf5f', 191]
+let s:orange4 = ['#df5f00', 166]
+let s:green = ['#00ff00', 46]
+let s:green1 = ['#00df00', 40]
+let s:darkgreen0 = ['#00af00', 34]
+let s:green3 = ['#008700', 28]
+let s:green4 = ['#005f00', 22]
+let s:cyan0 = ['#00ffff', 51]
+let s:cyan1 = ['#00dfff', 45]
+let s:cyan2 = ['#00afff', 39]
+let s:cyan3 = ['#0087ff', 33]
+let s:cyan4 = ['#005fff', 27]
 
-" 目录名 (还有列表里的其它特殊名字)
-hi Directory    gui=bold guifg=#ffdf5f                  cterm=bold ctermfg=221
+call s:HL('Normal', s:white, s:darkgray3) " 全局
+" }
+" { Window border
+let s:background = s:black
+let s:emphasis = 'bold,underline'
+" 状态行元素高亮
+call s:HL('User1', s:red)
+call s:HL('User2', s:darkgreen0)
+call s:HL('StatusLine', s:lightgray1) " 当前窗口的状态行
+let s:emphasis = v:null
+call s:HL('StatusLineNC', s:darkgray1) " 非当前窗口的状态行
+call s:HL('VertSplit', s:black) " 窗口左右分割列
+call s:HL('TabLineFill', s:darkgray1, s:black, 'underline') " Tab行背景
+call s:HL('TabLine', s:darkgray1, s:darkgray4, 'underline') " 其他Tab标签
+call s:HL('TabLineSel', s:lightgray1, s:none, 'bold') " 当前Tab标签
+" }
+" { Columns & Lines
+let s:background = s:darkgray4
+call s:HL('ColorColumn', s:none) " 右边界线
+call s:HL('LineNr', s:darkgray1) " 行号列, 编辑窗口或命令行. 查看命令:number, :#
+call s:HL('CursorLineNr', s:lightgray1) " 光标所在行的行号
+call s:HL('SignColumn', s:gray) " 标签列
+call s:HL('Folded', s:gray) " 折叠行
+call s:HL('FoldColumn', s:gray) " 折叠标记列
+let s:background = v:null
+" }
+" { Search
+call s:HL('Search', s:black, s:gold) " 搜索匹配高亮. 见:hlsearch
+hi! link IncSearch Search
+call s:HL('MatchParen', s:black, s:gold) " 匹配的括号对
+" }
+" { Menu
+call s:HL('Pmenu', s:lightgray1, s:darkgray2) " 菜单
+call s:HL('PmenuSel', s:white, s:darkgray0) " 菜单选中项
+call s:HL('PmenuSbar', s:none, s:darkgray1) " 菜单滚动条
+call s:HL('PmenuThumb', s:none, s:gray) " 菜单滚动条滑块
+call s:HL('WildMenu', s:lightgray1, s:green3, 'bold') " 命令行补全的匹配项(deprecated)
+" }
+" { Message
+call s:HL('Title', s:darkgreen0, s:none, 'bold') " :set all, :autocmd 等输出的标题
+call s:HL('WarningMsg', s:orange4) " 警告信息
+call s:HL('ErrorMsg', s:red) " 错误信息
+call s:HL('ModeMsg', s:none, s:none, 'bold') " 模式信息. 如: -- INSERT --
+call s:HL('MoreMsg', s:gray, s:none, 'bold') " |more-prompt|
+call s:HL('Question', s:darkgreen0, s:none, 'bold') " |hit-enter| 提示和 yes/no 问题
+" }
+" { Diff
+call s:HL('DiffAdd', s:none, s:darkgray1) " 增加的行
+call s:HL('DiffChange', s:none, s:darkgray2) " 差异的行
+call s:HL('DiffDelete', s:darkgray2, s:darkgray4) " 删除的行
+call s:HL('DiffText', s:none, s:darkred0) " 差异行里的差异内容
+" }
+" { Cursor
+call s:HL('Cursor', s:black, s:green) " 光标
+hi! link vCursor Cursor
+hi! link iCursor Cursor
+hi! link lCursor Cursor
+call s:HL('CursorLine', s:none) " 光标所在行
+call s:HL('CursorColumn', s:none) " 光标所在列
+call s:HL('Visual', s:none, s:black, 'underline') " 可视模式的选择区
+" }
+" { Character & Symbol
+call s:HL('NonText', s:darkgray1) " 文本里实际不存在的字符: '~','@','<',...
+call s:HL('SpecialKey', s:darkgray0) " 特殊字符
 
-" 命令行上的错误信息
-hi ErrorMsg     guibg=#ff0000                           ctermbg=196
+call s:HL('Boolean', s:orange4, s:none, 'bold') " 二值. true/false
+call s:HL('Boolean', s:orange4) " 数值
+hi! link Float Boolean
+call s:HL('Character', s:orange3) " 字符
+call s:HL('String', s:orange2, s:darkgray2) " 字符串
 
-" incsearch高亮
-hi IncSearch    guifg=#000000 guibg=#878700             ctermfg=16 ctermbg=100
-" 最近搜索模式的高亮 (见 'hlsearch')。
-"               也用于 quickfix 当前行的高亮和其它类似的要突出显示的项目
-hi Search       guifg=#000000 guibg=#dfdf5f             ctermfg=16 ctermbg=185
+call s:HL('Type', s:orange2) " 类型 int, long, char ...
+" " static, register, volatile const .
+" hi StorageClass guifg=#af5f5f                           ctermfg=131
+" " struct, union, enum ...
+" hi Structure    gui=bold,underline guifg=#5faf5f        cterm=bold,underline ctermfg=71
+" " typedef
+" hi Typedef      guifg=#5faf5f                           ctermfg=71
 
-" |more-prompt|
-hi MoreMsg      gui=bold guifg=#808080                  cterm=bold ctermfg=244
+call s:HL('Comment', s:gray) " 注释
+call s:HL('Constant', s:darkgreen0, s:none, 'bold') " 常量. 如: NULL, __FILE__
+" " 任何变量
+" hi Identifier   guifg=#00afff                           ctermfg=39
+" " 函数、类方法
+" hi Function     gui=bold guifg=#87df87                  cterm=bold ctermfg=114
+" " 任何关键字  break ...
+" hi Statement    guifg=#af0000                           ctermfg=124
+" " if, then, else, endif, switch, etc., ...
+" hi Conditional  guifg=#af0000                           ctermfg=124
+" " for, do, while, etc., ...
+" hi Repeat       guifg=#af0000                           ctermfg=124
+" " case, default, etc., ...
+" hi Label        guifg=#af0000                           ctermfg=124
+" " "sizeof", "+", "*", etc., ...
+" hi Operator     guifg=#808080                           ctermfg=244
+" " any other keyword
+" hi Keyword      guifg=#df0000                           ctermfg=160
+" " try, catch, throw, ...
+" hi Exception    guifg=#df0000                           ctermfg=160
+"
+" " 通用预处理命令
+" hi PreProc      guifg=#af5f5f                           ctermfg=131
+" " #include
+" hi Include      guifg=#9e9e9e                           ctermfg=247
+" " 
+" hi Define       guifg=#af5f5f                           ctermfg=131
+" " #define
+" hi Macro        guifg=#df5f5f                           ctermfg=167
+" " #if, #else, #endif ...
+" hi PerCondit    guifg=#af5f5f                           ctermfg=131
+"
+" " 特殊符号
+" hi Special      guifg=#606060                           ctermfg=241
+" " 字符串中的特殊字符
+" hi SpecialChar  guifg=#ffff87 guibg=#303030             ctermfg=228 ctermbg=236
+" " 有效链接
+" hi Tag          guifg=#00df00                           ctermfg=40
+" " 需要注意的字符
+" hi Delimiter    guifg=#808080                           ctermfg=8
+" " 注释里的特殊字符
+" hi SpecialComment   guifg=#afaf5f                       ctermfg=143
+"
+" " 文本突出显示, HTML链接
+" hi Underlined   gui=underline guifg=#00afff             cterm=underline ctermfg=39
+" " 留空，被隐藏
+" hi Ignore       guifg=#3a3a3a                           ctermfg=237
+" " 任何有错的构造 如关键字 FIXME DISABLE
+" hi Error        guifg=White guibg=Red                   ctermfg=15 ctermbg=9
+" " 任何需要特殊注意的部分；关键字 TODO WARN XXX NOTE
+" hi Todo         guifg=Blue guibg=Yellow                 ctermfg=12 ctermbg=11
+" }
 
-" 'showmode' 消息 (例如，"-- INSERT --")
-hi ModeMsg      gui=bold                                cterm=bold
+" " 目录名 (还有列表里的其它特殊名字)
+" hi Directory    gui=bold guifg=#ffdf5f                  cterm=bold ctermfg=221
 
-" ":number" 和 ":#" 命令与置位 'number' 选项时的行号
-hi LineNr       guifg=#444444 guibg=#121212             ctermfg=238 ctermbg=233
-
-" |hit-enter| 提示和 yes/no 问题
-hi Question     gui=bold guifg=#00af00                  cterm=bold ctermfg=34
-
-" 当前窗口的状态行
-hi StatusLine   gui=bold,underline guifg=#9e9e9e guibg=#000000  cterm=bold,underline ctermfg=247 ctermbg=16
-" 非当前窗口的状态行
-hi StatusLineNC gui=none guifg=#606060 guibg=#000000    cterm=none ctermfg=241 ctermbg=16
-" 分离垂直分割窗口的列
-hi VertSplit    gui=none guifg=#000000 guibg=#000000    cterm=none ctermfg=16 ctermbg=16
-
-" ":set all"、":autocmd" 等输出的标题
-hi Title        gui=bold guifg=#E0A0A0                  cterm=bold ctermfg=217
-
-" 可视模式的选择区
-hi Visual       gui=underline guibg=#000000             cterm=underline ctermbg=16
-" Vim 是 "选择区的非拥有者" 时，可视模式的选择区。
-"               只有 X11 GUI 的 |gui-x11| 和 |xterm-clipboard| 才提供此支持
-hi VisualNOS    gui=bold,underline                      cterm=bold,underline
-
-" 警告消息
-hi WarningMsg   guifg=#ff0000                           ctermfg=196
-
-" 命令行补全的匹配项高亮
-hi WildMenu     gui=bold guifg=#d0d0d0 guibg=#008700    cterm=bold ctermfg=252 ctermbg=28
-
-" 折叠的行
-hi Folded       guifg=#808080 guibg=#1c1c1c             ctermfg=244 ctermbg=234
-" 折叠标记列
-hi FoldColumn   guifg=#808080 guibg=#1c1c1c             ctermfg=244 ctermbg=234
-
-" diff 模式: 增加的行
-hi DiffAdd      guibg=#444444                           ctermbg=238
-" diff 模式: 改变的行
-hi DiffChange   guibg=#303030                           ctermbg=236
-" diff 模式: 删除的行
-hi DiffDelete   guifg=#3a3a3a guibg=#121212             ctermfg=237 ctermbg=233
-" diff 模式: 改变行里的改动文本
-hi DiffText     guibg=#5f0000                           ctermbg=52
-
-" 显示标签的列
-hi SignColumn   guifg=#005f00  guibg=#121212            ctermfg=22 ctermbg=233
-hi SpellBad     gui=undercurl   guisp=Red               cterm=undercurl
-hi SpellCap     gui=undercurl   guisp=Blue              cterm=undercurl
-hi SpellRare    gui=undercurl   guisp=Magenta           cterm=undercurl
-hi SpellLocal   gui=undercurl   guisp=DarkCyan          cterm=undercurl
-
-" 菜单
-hi Pmenu        guibg=#303030 guifg=#d0d0d0             ctermbg=236 ctermfg=252
-" 菜单选中项
-hi PmenuSel     guibg=#606060 guifg=#ffffff             ctermbg=241 ctermfg=231
-" 菜单滚动条
-hi PmenuSbar    guibg=#444444                           ctermbg=238
-" 菜单滚动条滑块
-hi PmenuThumb   guibg=#808080                           ctermbg=244
-
-hi TabLine      gui=underline guibg=#606060             ctermbg=59 cterm=underline
-hi TabLineSel   gui=bold                                cterm=bold
-hi TabLineFill  gui=reverse                             cterm=reverse
-
-" 光标所在列
-hi CursorColumn guibg=#606060                           ctermbg=241
-" 光标所在行
-hi CursorLine   guibg=#606060                           ctermbg=241
-" 光标所在的字符
-hi Cursor       guifg=#000000 guibg=#eeeeee             ctermfg=16 ctermbg=255
-hi lCursor      guifg=#000000 guibg=#b2b2b2
-
-" 匹配的括号
-hi MatchParen   gui=bold,underline guifg=#ffaf00 guibg=bg cterm=bold,underline ctermfg=214 ctermbg=bg
-
-" 右边界线
-hi ColorColumn  guibg=#303030                           ctermbg=236
-
-
-" }_____________________________________________________________________________
-" ____{ variables colors define
-
-" 任何注释
-hi Comment      guifg=#808080                           ctermfg=244
-
-" 任何常量 如: NULL
-hi Constant     gui=bold guifg=#00af00                  cterm=bold ctermfg=34
-" 字符
-hi Character    guifg=#df8700                           ctermfg=172
-" 字符串
-hi String       guifg=#dfaf5f guibg=#303030             ctermfg=179 ctermbg=236
-" 数字
-hi Number       guifg=#af5f00                           ctermfg=130
-hi Boolean      gui=bold guifg=#df5f00                  cterm=bold ctermfg=166
-hi Float        guifg=#af5f00                           ctermfg=130
-
-" 任何变量
-hi Identifier   guifg=#00afff                           ctermfg=39
-" 函数、类方法
-hi Function     gui=bold guifg=#87df87                  cterm=bold ctermfg=114
-
-" 任何关键字  break ...
-hi Statement    guifg=#af0000                           ctermfg=124
-" if, then, else, endif, switch, etc., ...
-hi Conditional  guifg=#af0000                           ctermfg=124
-" for, do, while, etc., ...
-hi Repeat       guifg=#af0000                           ctermfg=124
-" case, default, etc., ...
-hi Label        guifg=#af0000                           ctermfg=124
-" "sizeof", "+", "*", etc., ...
-hi Operator     guifg=#808080                           ctermfg=244
-" any other keyword
-hi Keyword      guifg=#df0000                           ctermfg=160
-" try, catch, throw, ...
-hi Exception    guifg=#df0000                           ctermfg=160
-
-" 通用预处理命令
-hi PreProc      guifg=#af5f5f                           ctermfg=131
-" #include
-hi Include      guifg=#9e9e9e                           ctermfg=247
-" 
-hi Define       guifg=#af5f5f                           ctermfg=131
-" #define
-hi Macro        guifg=#df5f5f                           ctermfg=167
-" #if, #else, #endif ...
-hi PerCondit    guifg=#af5f5f                           ctermfg=131
-
-" 类型 int, long, char ...
-hi Type         guifg=#5faf5f                           ctermfg=71
-" static, register, volatile const .
-hi StorageClass guifg=#af5f5f                           ctermfg=131
-" struct, union, enum ...
-hi Structure    gui=bold,underline guifg=#5faf5f        cterm=bold,underline ctermfg=71
-" typedef
-hi Typedef      guifg=#5faf5f                           ctermfg=71
-
-" 特殊符号
-hi Special      guifg=#606060                           ctermfg=241
-" 字符串中的特殊字符
-hi SpecialChar  guifg=#ffff87 guibg=#303030             ctermfg=228 ctermbg=236
-" 有效链接
-hi Tag          guifg=#00df00                           ctermfg=40
-" 需要注意的字符
-hi Delimiter    guifg=#808080                           ctermfg=8
-" 注释里的特殊字符
-hi SpecialComment   guifg=#afaf5f                       ctermfg=143
-
-" 文本突出显示, HTML链接
-hi Underlined   gui=underline guifg=#00afff             cterm=underline ctermfg=39
-
-" 留空，被隐藏
-hi Ignore       guifg=#3a3a3a                           ctermfg=237
-
-" 任何有错的构造 如关键字 FIXME DISABLE
-hi Error        guifg=White guibg=Red                   ctermfg=15 ctermbg=9
-" 任何需要特殊注意的部分；关键字 TODO WARN XXX NOTE
-hi Todo         guifg=Blue guibg=Yellow                 ctermfg=12 ctermbg=11
-
-" }_____________________________________________________________________________
+" hi SpellBad     gui=undercurl   guisp=Red               cterm=undercurl
+" hi SpellCap     gui=undercurl   guisp=Blue              cterm=undercurl
+" hi SpellRare    gui=undercurl   guisp=Magenta           cterm=undercurl
+" hi SpellLocal   gui=undercurl   guisp=DarkCyan          cterm=undercurl
 
