@@ -48,31 +48,43 @@ let s:darkgray3 = ['#262626', 235]
 let s:darkgray4 = ['#121212', 233]
 let s:black = ['#000000', 0]
 
+let s:lightred1 = ['#df5f5f', 203]
+let s:lightred0 = ['#af5f5f', 167]
 let s:red = ['#ff0000', 196]
-let s:darkred0 = ['#5f0000', 52]
+let s:darkred0 = ['#df0000', 160]
+let s:darkred1 = ['#af0000', 124]
+let s:darkred2 = ['#5f0000', 52]
+let s:yellow = ['#ffff00', 11]
 let s:gold = ['#ffdf00', 220]
-let s:orange2 = ['#dfaf5f', 179]
-let s:orange3 = ['#dfdf5f', 191]
-let s:orange4 = ['#df5f00', 166]
+let s:wheat0 = ['#dfaf5f', 179]
+let s:wheat1 = ['#df8700', 172]
+let s:wheat2 = ['#af5f00', 130]
+let s:orange = ['#df5f00', 166]
+let s:lightgreen1 = ['#87df87', 114]
+let s:lightgreen0 = ['#5faf5f', 71]
 let s:green = ['#00ff00', 46]
-let s:green1 = ['#00df00', 40]
-let s:darkgreen0 = ['#00af00', 34]
-let s:green3 = ['#008700', 28]
-let s:green4 = ['#005f00', 22]
-let s:cyan0 = ['#00ffff', 51]
-let s:cyan1 = ['#00dfff', 45]
-let s:cyan2 = ['#00afff', 39]
-let s:cyan3 = ['#0087ff', 33]
-let s:cyan4 = ['#005fff', 27]
-
-call s:HL('Normal', s:white, s:darkgray3) " 全局
+let s:darkgreen = ['#00af00', 34]
+let s:deepblue = ['#00dfff', 45]
+let s:blue = ['#005fdf', 26]
 " }
-" { Window border
+" { Window
+call s:HL('Normal', s:white, s:darkgray3) " 普通文字
+call s:HL('NormalFloat', s:white, s:darkgray3) " 浮动窗口中的文字
+call s:HL('NormalNC', s:lightgray1, s:darkgray3) " 非当前窗口中的文字
+call s:HL('Pmenu', s:lightgray1, s:darkgray2) " 菜单
+call s:HL('PmenuSel', s:white, s:darkgray0) " 菜单选中项
+call s:HL('PmenuSbar', s:none, s:darkgray1) " 菜单滚动条
+call s:HL('PmenuThumb', s:none, s:gray) " 菜单滚动条滑块
+call s:HL('WildMenu', s:lightgray1, s:darkgreen, 'bold') " 命令行补全的匹配项(deprecated)
+call s:HL('WinBar', s:lightgray1, s:none, 'bold') " 当前窗口
+call s:HL('WinBarNC', s:darkgray1, s:darkgray4, 'underline') " 非当前窗口
+" }
+" { Border
 let s:background = s:black
 let s:emphasis = 'bold,underline'
 " 状态行元素高亮
 call s:HL('User1', s:red)
-call s:HL('User2', s:darkgreen0)
+call s:HL('User2', s:darkgreen)
 call s:HL('StatusLine', s:lightgray1) " 当前窗口的状态行
 let s:emphasis = v:null
 call s:HL('StatusLineNC', s:darkgray1) " 非当前窗口的状态行
@@ -92,30 +104,26 @@ call s:HL('FoldColumn', s:gray) " 折叠标记列
 let s:background = v:null
 " }
 " { Search
-call s:HL('Search', s:black, s:gold) " 搜索匹配高亮. 见:hlsearch
+call s:HL('Search', s:black, s:gold) " 匹配项
+call s:HL('CurSearch', s:black, s:white) " 光标下的匹配项
 hi! link IncSearch Search
+hi! link Substitute Search
 call s:HL('MatchParen', s:black, s:gold) " 匹配的括号对
 " }
-" { Menu
-call s:HL('Pmenu', s:lightgray1, s:darkgray2) " 菜单
-call s:HL('PmenuSel', s:white, s:darkgray0) " 菜单选中项
-call s:HL('PmenuSbar', s:none, s:darkgray1) " 菜单滚动条
-call s:HL('PmenuThumb', s:none, s:gray) " 菜单滚动条滑块
-call s:HL('WildMenu', s:lightgray1, s:green3, 'bold') " 命令行补全的匹配项(deprecated)
-" }
 " { Message
-call s:HL('Title', s:darkgreen0, s:none, 'bold') " :set all, :autocmd 等输出的标题
-call s:HL('WarningMsg', s:orange4) " 警告信息
+call s:HL('Directory', s:wheat0, s:none, 'bold') " 目录名和列表里其它特殊名字
+call s:HL('Title', s:darkgreen, s:none, 'bold') " :set all, :autocmd 等输出的标题
+call s:HL('WarningMsg', s:orange) " 警告信息
 call s:HL('ErrorMsg', s:red) " 错误信息
 call s:HL('ModeMsg', s:none, s:none, 'bold') " 模式信息. 如: -- INSERT --
 call s:HL('MoreMsg', s:gray, s:none, 'bold') " |more-prompt|
-call s:HL('Question', s:darkgreen0, s:none, 'bold') " |hit-enter| 提示和 yes/no 问题
+call s:HL('Question', s:darkgreen, s:none, 'bold') " |hit-enter| 提示和 yes/no 问题
 " }
 " { Diff
 call s:HL('DiffAdd', s:none, s:darkgray1) " 增加的行
 call s:HL('DiffChange', s:none, s:darkgray2) " 差异的行
 call s:HL('DiffDelete', s:darkgray2, s:darkgray4) " 删除的行
-call s:HL('DiffText', s:none, s:darkred0) " 差异行里的差异内容
+call s:HL('DiffText', s:none, s:darkred2) " 差异行里的差异内容
 " }
 " { Cursor
 call s:HL('Cursor', s:black, s:green) " 光标
@@ -124,84 +132,54 @@ hi! link iCursor Cursor
 hi! link lCursor Cursor
 call s:HL('CursorLine', s:none) " 光标所在行
 call s:HL('CursorColumn', s:none) " 光标所在列
-call s:HL('Visual', s:none, s:black, 'underline') " 可视模式的选择区
+call s:HL('Visual', s:white, s:blue) " 可视模式的选择区
 " }
-" { Character & Symbol
+" { Character
 call s:HL('NonText', s:darkgray1) " 文本里实际不存在的字符: '~','@','<',...
-call s:HL('SpecialKey', s:darkgray0) " 特殊字符
-
-call s:HL('Boolean', s:orange4, s:none, 'bold') " 二值. true/false
-call s:HL('Boolean', s:orange4) " 数值
-hi! link Float Boolean
-call s:HL('Character', s:orange3) " 字符
-call s:HL('String', s:orange2, s:darkgray2) " 字符串
-
-call s:HL('Type', s:orange2) " 类型 int, long, char ...
-" " static, register, volatile const .
-" hi StorageClass guifg=#af5f5f                           ctermfg=131
-" " struct, union, enum ...
-" hi Structure    gui=bold,underline guifg=#5faf5f        cterm=bold,underline ctermfg=71
-" " typedef
-" hi Typedef      guifg=#5faf5f                           ctermfg=71
-
-call s:HL('Comment', s:gray) " 注释
-call s:HL('Constant', s:darkgreen0, s:none, 'bold') " 常量. 如: NULL, __FILE__
-" " 任何变量
-" hi Identifier   guifg=#00afff                           ctermfg=39
-" " 函数、类方法
-" hi Function     gui=bold guifg=#87df87                  cterm=bold ctermfg=114
-" " 任何关键字  break ...
-" hi Statement    guifg=#af0000                           ctermfg=124
-" " if, then, else, endif, switch, etc., ...
-" hi Conditional  guifg=#af0000                           ctermfg=124
-" " for, do, while, etc., ...
-" hi Repeat       guifg=#af0000                           ctermfg=124
-" " case, default, etc., ...
-" hi Label        guifg=#af0000                           ctermfg=124
-" " "sizeof", "+", "*", etc., ...
-" hi Operator     guifg=#808080                           ctermfg=244
-" " any other keyword
-" hi Keyword      guifg=#df0000                           ctermfg=160
-" " try, catch, throw, ...
-" hi Exception    guifg=#df0000                           ctermfg=160
-"
-" " 通用预处理命令
-" hi PreProc      guifg=#af5f5f                           ctermfg=131
-" " #include
-" hi Include      guifg=#9e9e9e                           ctermfg=247
-" " 
-" hi Define       guifg=#af5f5f                           ctermfg=131
-" " #define
-" hi Macro        guifg=#df5f5f                           ctermfg=167
-" " #if, #else, #endif ...
-" hi PerCondit    guifg=#af5f5f                           ctermfg=131
-"
-" " 特殊符号
-" hi Special      guifg=#606060                           ctermfg=241
-" " 字符串中的特殊字符
-" hi SpecialChar  guifg=#ffff87 guibg=#303030             ctermfg=228 ctermbg=236
-" " 有效链接
-" hi Tag          guifg=#00df00                           ctermfg=40
-" " 需要注意的字符
-" hi Delimiter    guifg=#808080                           ctermfg=8
-" " 注释里的特殊字符
-" hi SpecialComment   guifg=#afaf5f                       ctermfg=143
-"
-" " 文本突出显示, HTML链接
-" hi Underlined   gui=underline guifg=#00afff             cterm=underline ctermfg=39
-" " 留空，被隐藏
-" hi Ignore       guifg=#3a3a3a                           ctermfg=237
-" " 任何有错的构造 如关键字 FIXME DISABLE
-" hi Error        guifg=White guibg=Red                   ctermfg=15 ctermbg=9
-" " 任何需要特殊注意的部分；关键字 TODO WARN XXX NOTE
-" hi Todo         guifg=Blue guibg=Yellow                 ctermfg=12 ctermbg=11
+call s:HL('SpecialKey', s:darkgray0) " 不可显ASCII字符
 " }
+" { Symbol. 参考:|group-name|
+call s:HL('Comment', s:gray) " 注释
 
-" " 目录名 (还有列表里的其它特殊名字)
-" hi Directory    gui=bold guifg=#ffdf5f                  cterm=bold ctermfg=221
+call s:HL('Constant', s:darkgreen, s:none, 'bold') " 常量. 如: NULL, __FILE__
+call s:HL('String', s:wheat0, s:darkgray2) " 字符串
+call s:HL('Character', s:wheat1) " 字符: '\n'
+call s:HL('Number', s:wheat2) " 数值
+call s:HL('Boolean', s:wheat1, s:none, 'bold') " 二值. TRUE, false
+call s:HL('Float', s:wheat1) " 浮点数
 
-" hi SpellBad     gui=undercurl   guisp=Red               cterm=undercurl
-" hi SpellCap     gui=undercurl   guisp=Blue              cterm=undercurl
-" hi SpellRare    gui=undercurl   guisp=Magenta           cterm=undercurl
-" hi SpellLocal   gui=undercurl   guisp=DarkCyan          cterm=undercurl
+call s:HL('Identifier', s:deepblue) " 任何变量
+call s:HL('Function', s:lightgreen1, s:none, 'bold') " 函数, 方法
+
+call s:HL('Statement', s:darkred1) " 关键字
+call s:HL('Conditional', s:darkred0) " if, then, else, endif, switch, etc.
+call s:HL('Repeat', s:darkred0) " for, do, while, etc.
+call s:HL('Label', s:darkred0) " case, default, etc.
+call s:HL('Operator', s:lightgray0) " sizeof, +, *, etc.
+call s:HL('Keyword', s:darkred1) " any other keyword
+call s:HL('Exception', s:darkred0) " try, catch, throw
+
+call s:HL('PreProc', s:lightred0) " 通用预处理
+call s:HL('Include', s:lightgray0) " #include
+call s:HL('Define', s:lightred1) " #define
+call s:HL('Macro', s:lightred1) " 同Define
+call s:HL('PerCondit', s:lightred0) " #if, #else, #endif, etc.
+
+call s:HL('Type', s:lightgreen0) " 通用类型 int, long, char ...
+call s:HL('StorageClass', s:lightred0) " static, register, volatile const ...
+call s:HL('Structure', s:lightgreen0) " struct, union, enum ...
+call s:HL('Typedef', s:lightgreen0, s:none, 'bold') " typedef
+
+call s:HL('Special', s:gray) " 通用特殊符号
+call s:HL('SpecialChar', s:gold, s:darkgray2) " 常量中的特殊字符
+call s:HL('Tag', s:deepblue) " 可ctrl-]跳转的符号
+call s:HL('Delimiter', s:lightgray0) " 需要关注的字符
+call s:HL('SpecialComment', s:lightred0) " 注释中的特殊字符
+call s:HL('Debug', s:gray) " 调试语句
+
+call s:HL('Underlined', s:deepblue, s:none, 'underline') " 突出显示. 如HTML链接
+call s:HL('Ignore', s:darkgray1) " 忽略内容
+call s:HL('Error', s:white, s:red) " 错误标注. 如: DISABLE
+call s:HL('Todo', s:black, s:yellow) " 关键说明标注. 如: TODO FIXME XXX
+" }
 

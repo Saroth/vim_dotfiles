@@ -5,5 +5,5 @@ source $VIM/config/basic.vim
 source $VIM/config/keymap.vim
 source $VIM/config/plugin.vim
 
-lua require('entry')
+lua require('init')
 

@@ -2,12 +2,15 @@
 " Install: curl -fLo $VIM/vimfiles/autoload/plug.vim --create-dirs \
 "       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-call plug#begin($VIM.'/vimfiles/plugged')
+call plug#begin($VIM.'/plugged')
 
 " Plug 'morhetz/gruvbox'
 
 " OTHER:
-" { color-table     终端颜色表 Use for match term color and gui color
+" { winbar          窗口栏
+    " Plug 'fgheng/winbar.nvim'
+" }
+" { color-table     终端颜色表. :XtermColorTable
     Plug 'guns/xterm-color-table.vim'
 " }
 
