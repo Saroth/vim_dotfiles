@@ -6,6 +6,7 @@
 ### Plugin
 plugged/
 pack/
+site/
 
 .exvim.*/
 *.vimproject
