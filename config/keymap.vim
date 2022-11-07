@@ -29,8 +29,11 @@
     map <F3> :e $VIM/vimfiles/config/keymap.vim <CR>
     " F4:
     map <F4> :e $VIM/vimfiles/config/plugin.vim <CR>
+
     " F5:
     map <F5> :Update<CR>
+    " F8:
+    map <F8> :NvimTreeToggle<CR>
 
     "  F9: next hunk
     map <F9> <Plug>(GitGutterNextHunk)

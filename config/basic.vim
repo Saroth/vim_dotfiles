@@ -30,7 +30,8 @@
     autocmd BufEnter * call s:set_colorcolumn()
     function s:set_colorcolumn() " 根据文件类型设置边界线和默认宽度
         let t = &filetype
-        if (t == 'exproject') " 不调整指定插件的窗口大小
+        let fixSizeWindow = ['exproject', 'NvimTree']
+        if (count(fixSizeWindow, t) > 0) " 不调整指定插件的窗口大小
             return
         endif
         let charLimit100 = ['rust', 'python'] " 每行限制100字符的语言

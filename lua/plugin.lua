@@ -8,12 +8,17 @@ require('packer').startup(function(use)
   -- Packer manage itself
   use 'wbthomason/packer.nvim'
 
-  -- 基于NeoVim内置treesiter的代码高亮
+  -- nvim-treesitter    基于NeoVim内置treesiter的代码高亮
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
+  -- nvim-tree.lua      文件管理器
+  use { 'nvim-tree/nvim-tree.lua',
+  requires = { 'nvim-tree/nvim-web-devicons', }} -- file icons
 end)
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { 'c', 'lua', 'java', 'javascript', 'python' }, -- A list of parser names { "c", "lua", "rust" }
+-- nvim-treesitter {
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { 'c', 'lua', 'java', 'javascript', 'python' }, -- A list of parser names { 'c', 'lua', 'rust' }
   sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
@@ -44,4 +49,35 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+-- }
+-- nvim-tree.lua {
+-- disable netrw at the every start
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+require('nvim-tree').setup({
+  sort_by = 'case_sensitive',
+  view = {
+    adaptive_size = false,  -- 自适应大小
+    width = 32,  -- 固定宽度
+    side = 'right',  -- 靠右
+    preserve_window_proportions = true,
+    number = false,
+    signcolumn = 'no',
+    mappings = {
+      list = {
+        { key = 'u', action = 'dir_up' },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+    add_trailing = false,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+-- }
 
