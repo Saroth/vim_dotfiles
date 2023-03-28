@@ -1,46 +1,52 @@
--- Install:
---    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
---        ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+-- XXX: 配置修改后需执行:PackerSync并重启
 
--- vim.cmd [[packadd packer.nvim]]
+-- Plugins init {
+local ensure_packer = function()
+  -- 检查并自动安装Packer
+  local f = vim.fn
+  local packer_path = f.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if f.empty(f.glob(packer_path)) <= 0 then
+    return false
+  end
+  f.system({'git', 'clone', '--depth', '1',
+  'https://github.com/wbthomason/packer.nvim', packer_path})
+  return true
+end
+local packer_bootstrap = ensure_packer()
 
 require('packer').startup(function(use)
   -- Packer manage itself
   use 'wbthomason/packer.nvim'
-
   -- nvim-treesitter    基于NeoVim内置treesiter的代码高亮
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
   -- nvim-tree.lua      文件管理器
   use { 'nvim-tree/nvim-tree.lua',
   requires = { 'nvim-tree/nvim-web-devicons', }} -- file icons
-end)
 
--- nvim-treesitter {
+  --- After all plugins
+  if packer_bootstrap then
+    -- 初次安装后自动配置
+    require('packer').sync()
+  end
+end)
+-- }
+-- nvim-treesitter配置 {
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'c', 'lua', 'java', 'javascript', 'python' }, -- A list of parser names { 'c', 'lua', 'rust' }
+  ensure_installed = { 'c', 'lua', 'vim', 'help', 'java', 'javascript', 'python' }, -- A list of parser names { 'c', 'lua', 'rust' }
   sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
   ignore_install = { }, -- List of parsers to ignore installing (for 'all')
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = vim.env.VIM .. '/site', -- Remember to run vim.opt.runtimepath:append('/some/path/to/store/parsers')!
   highlight = {
-    enable = true, -- `false` will disable the whole extension
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    disable = { },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
+    enable = true, -- 全局开关
+    disable = { }, -- 禁用高亮的语言. NOTE: 此处填写解析器名, 而不是文件类型
+    disable = function(lang, buf) -- 灵活控制. 不对大文件启用高亮
+      local max_filesize = 100 * 1024 -- 100 KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
     end,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).

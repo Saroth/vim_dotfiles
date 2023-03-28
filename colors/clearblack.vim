@@ -16,22 +16,28 @@ endif
 
 let s:background = v:null " 通用背景色
 let s:emphasis = v:null " 通用字体格式
+"""
+" 通用高亮设置
+" group:  高亮组名称
+" fg      前景色
+" a:1     背景色. 默认使用Normal配置, 若有设置s:background则使用设置
+" a:2     突出显示. 默认无, 若有设置s:emphasis则使用设置
 function! s:HL(group, fg, ...)
-    let bg = s:background is v:null ? s:none : s:background
-    if a:0 > 0
-        let bg = a:1
-    endif
-    let em = s:emphasis is v:null ? s:emphasis_none : s:emphasis
-    if a:0 > 1 && strlen(a:2)
-        let em = a:2
-    endif
-    let hi_cfg = [ 'highlight', a:group,
-                \'guifg=' . a:fg[0], 'ctermfg=' . a:fg[1],
-                \'guibg=' . bg[0], 'ctermbg=' . bg[1],
-                \'gui=' . em, 'cterm=' . em]
-    let hi_str = join(hi_cfg, ' ')
-    " echo hi_str
-    execute hi_str
+  let bg = s:background is v:null ? s:none : s:background
+  if a:0 > 0
+    let bg = a:1
+  endif
+  let em = s:emphasis is v:null ? s:emphasis_none : s:emphasis
+  if a:0 > 1 && strlen(a:2)
+    let em = a:2
+  endif
+  let hi_cfg = [ 'highlight', a:group,
+        \'guifg=' . a:fg[0], 'ctermfg=' . a:fg[1],
+        \'guibg=' . bg[0], 'ctermbg=' . bg[1],
+        \'gui=' . em, 'cterm=' . em]
+  let hi_str = join(hi_cfg, ' ')
+  " echo hi_str
+  execute hi_str
 endfunction
 
 let s:none = ['NONE', 'NONE']
@@ -54,6 +60,7 @@ let s:red = ['#ff0000', 196]
 let s:darkred0 = ['#df0000', 160]
 let s:darkred1 = ['#af0000', 124]
 let s:darkred2 = ['#5f0000', 52]
+let s:lightyellow = ['#ffff87', 228]
 let s:yellow = ['#ffff00', 11]
 let s:gold = ['#ffdf00', 220]
 let s:wheat0 = ['#dfaf5f', 179]
@@ -108,7 +115,7 @@ call s:HL('Search', s:black, s:gold) " 匹配项
 call s:HL('CurSearch', s:black, s:white) " 光标下的匹配项
 hi! link IncSearch Search
 hi! link Substitute Search
-call s:HL('MatchParen', s:black, s:gold) " 匹配的括号对
+call s:HL('MatchParen', s:gold, s:none, 'bold,underline') " 匹配的括号对
 " }
 " { Message
 call s:HL('Directory', s:wheat0, s:none, 'bold') " 目录名和列表里其它特殊名字
@@ -171,7 +178,7 @@ call s:HL('Structure', s:lightgreen0) " struct, union, enum ...
 call s:HL('Typedef', s:lightgreen0, s:none, 'bold') " typedef
 
 call s:HL('Special', s:gray) " 通用特殊符号
-call s:HL('SpecialChar', s:gold, s:darkgray2) " 常量中的特殊字符
+call s:HL('SpecialChar', s:lightyellow, s:darkgray2) " 常量中的特殊字符
 call s:HL('Tag', s:deepblue) " 可ctrl-]跳转的符号
 call s:HL('Delimiter', s:lightgray0) " 需要关注的字符
 call s:HL('SpecialComment', s:lightred0) " 注释中的特殊字符

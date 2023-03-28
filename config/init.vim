@@ -5,7 +5,7 @@ source $VIM/config/basic.vim
 source $VIM/config/keymap.vim
 source $VIM/config/plugin.vim
 
-if has('nvim') " For Neovim only
+if has('nvim') " For Neovim only: Load $VIM/lua/init.lua
     lua require('init')
 endif
 
