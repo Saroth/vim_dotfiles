@@ -30,7 +30,7 @@ require('packer').startup(function(use)
   end
 end)
 -- }
--- nvim-treesitter配置 {
+-- nvim-treesitter {
 require('nvim-treesitter.configs').setup {
   ensure_installed = { 'c', 'lua', 'vim', 'help', 'java', 'javascript', 'python' }, -- A list of parser names { 'c', 'lua', 'rust' }
   sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -62,6 +62,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
+local ntapi = require('nvim-tree.api')
 require('nvim-tree').setup({
   sort_by = 'case_sensitive',
   view = {
