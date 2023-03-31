@@ -85,6 +85,7 @@ call s:HL('PmenuThumb', s:none, s:gray) " 菜单滚动条滑块
 call s:HL('WildMenu', s:lightgray1, s:darkgreen, 'bold') " 命令行补全的匹配项(deprecated)
 call s:HL('WinBar', s:lightgray1, s:none, 'bold') " 当前窗口
 call s:HL('WinBarNC', s:darkgray1, s:darkgray4, 'underline') " 非当前窗口
+call s:HL('FloatBorder', s:white, s:darkgray3) " 悬浮窗口边框
 " }
 " { Border
 let s:background = s:black
@@ -112,7 +113,7 @@ let s:background = v:null
 " }
 " { Search
 call s:HL('Search', s:black, s:gold) " 匹配项
-call s:HL('CurSearch', s:black, s:white) " 光标下的匹配项
+call s:HL('CurSearch', s:black, s:orange) " 光标下的匹配项
 hi! link IncSearch Search
 hi! link Substitute Search
 call s:HL('MatchParen', s:gold, s:none, 'bold,underline') " 匹配的括号对

@@ -57,33 +57,63 @@ require('nvim-treesitter.configs').setup {
 }
 -- }
 -- nvim-tree.lua {
--- disable netrw at the every start
+-- 在启动时禁用NeoVim自带文件管理器插件netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+vim.opt.termguicolors = true  -- 启用高亮
 local ntapi = require('nvim-tree.api')
 require('nvim-tree').setup({
-  sort_by = 'case_sensitive',
+  sort_by = 'name',  -- 排序规则
   view = {
     adaptive_size = false,  -- 自适应大小
-    width = 32,  -- 固定宽度
-    side = 'right',  -- 靠右
-    preserve_window_proportions = true,
-    number = false,
-    signcolumn = 'no',
-    mappings = {
-      list = {
-        { key = 'u', action = 'dir_up' },
-      },
+    width = {
+      min = 32,
+      max = -1,
+      padding = 0,
     },
+    side = 'left',  -- 靠边位置: left/right. 放左边可以显示超长文件名
+    preserve_window_proportions = false,  -- 文件变动时更新窗口长宽
+    number = false,  -- 行号
+    signcolumn = 'yes',  -- 标志列
+  },
+  modified = {  -- 修改状态显示
+    enable = true,
+    show_on_dirs = true,  -- 文件夹内有文件修改时, 文件夹显示修改状态
+    show_on_open_dirs = false,  -- 已展开的文件夹不显示修改状态
   },
   renderer = {
-    group_empty = true,
-    add_trailing = false,
+    add_trailing = true,  -- 文件夹末尾加斜线
+    group_empty = true,  -- 文件夹内只有一个文件夹时, 使用组合显示
+    full_name = true,  -- 文件名长度超出窗口宽度时继续显示
+    highlight_git = true,  -- 高亮显示文件git状态
+    highlight_opened_files = "name",  -- 高亮显示已打开的文件
+    highlight_modified = "name",  -- 高亮显示已修改的文件
+    indent_width = 2,  -- 缩进宽度
+    indent_markers = {  -- 缩进标志显示
+      enable = true,
+      inline_arrows = false,
+    },
+    icons = {
+      show = {  -- 图标显示控制
+        file = false,
+        folder = false,
+        folder_arrow = false,
+        git = true,
+        modified = true,
+      },
+      git_placement = 'signcolumn',  -- 将git状态标志放在标志列显示
+      modified_placement = 'after',  -- 将修改状态标志放在文件末尾显示
+    }
   },
   filters = {
-    dotfiles = true,
+    dotfiles = true,  -- 隐藏文件显示控制. 按'H'切换
+  },
+  actions = {
+    file_popup = {
+      open_win_config = {
+        border = "rounded",  -- 浮动窗口样式. rounded:显示为圆角
+      }
+    }
   },
 })
 -- }
