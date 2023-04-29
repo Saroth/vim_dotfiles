@@ -60,60 +60,88 @@ require('nvim-treesitter.configs').setup {
 -- 在启动时禁用NeoVim自带文件管理器插件netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.opt.termguicolors = true  -- 启用高亮
-local ntapi = require('nvim-tree.api')
+local function my_on_attach(nr)  -- 映射配置
+  local i = require('nvim-tree.api')
+  local function o(d)
+    return { desc = 'nvim-tree: ' .. d, buffer = nr, noremap = true, silent = true, nowait = true, }
+  end
+  i.config.mappings.default_on_attach(nr)  -- 载入默认映射
+  ---- 以下为自定义映射
+  -- 调换J/K和</>
+  vim.keymap.set('n', 'J', i.node.navigate.sibling.next, o('Next Sibling'))
+  vim.keymap.set('n', 'K', i.node.navigate.sibling.prev, o('Previous Sibling'))
+  vim.keymap.set('n', '>', i.node.navigate.sibling.last, o('Last Sibling'))
+  vim.keymap.set('n', '<', i.node.navigate.sibling.first, o('First Sibling'))
+  -- Git
+  vim.keymap.set('n', '<F9>', i.node.navigate.git.next, o('Next Git'))
+  vim.keymap.set('n', '<F10>', i.node.navigate.git.prev, o('Prev Git'))
+  -- 文件夹折叠/展开
+  vim.keymap.set('n', 'zr', i.tree.expand_all, o('Expand'))
+  local function collapse_all_keep_buffers()
+    i.tree.collapse_all(true)
+  end
+  vim.keymap.set('n', 'zm', collapse_all_keep_buffers, o('Collapse: keep buffers'))
+  vim.keymap.set('n', 'zM', i.tree.collapse_all, o('Collapse'))
+end
 require('nvim-tree').setup({
   sort_by = 'name',  -- 排序规则
-  view = {
-    adaptive_size = false,  -- 自适应大小
-    width = {
-      min = 32,
-      max = -1,
-      padding = 0,
-    },
+  modified = {  -- 文件修改状态图标
+    enable = true,  -- 启用
+    show_on_dirs = true,  -- 文件夹内有文件改动时, 在文件夹上显示图标
+    show_on_open_dirs = false,  -- 在已展开的文件夹显示图标
+  },
+  on_attach = my_on_attach,  -- 映射配置
+  view = {  -- 窗口/缓存配置
+    width = 32,  -- 窗口宽度
     side = 'left',  -- 靠边位置: left/right. 放左边可以显示超长文件名
     preserve_window_proportions = false,  -- 文件变动时更新窗口长宽
-    number = false,  -- 行号
     signcolumn = 'yes',  -- 标志列
   },
-  modified = {  -- 修改状态显示
-    enable = true,
-    show_on_dirs = true,  -- 文件夹内有文件修改时, 文件夹显示修改状态
-    show_on_open_dirs = false,  -- 已展开的文件夹不显示修改状态
-  },
-  renderer = {
+  renderer = {  -- UI渲染配置
     add_trailing = true,  -- 文件夹末尾加斜线
-    group_empty = true,  -- 文件夹内只有一个文件夹时, 使用组合显示
+    group_empty = true,  -- 文件夹内只有一个文件夹时合并展示
     full_name = true,  -- 文件名长度超出窗口宽度时继续显示
-    highlight_git = true,  -- 高亮显示文件git状态
-    highlight_opened_files = "name",  -- 高亮显示已打开的文件
-    highlight_modified = "name",  -- 高亮显示已修改的文件
+    highlight_git = false,  -- 高亮显示文件git状态
+    highlight_opened_files = 'name',  -- 高亮显示已打开的文件
+    highlight_modified = 'name',  -- 高亮显示已修改的文件
     indent_width = 2,  -- 缩进宽度
     indent_markers = {  -- 缩进标志显示
-      enable = true,
-      inline_arrows = false,
+      enable = true,  -- 启用
     },
-    icons = {
-      show = {  -- 图标显示控制
-        file = false,
-        folder = false,
-        folder_arrow = false,
-        git = true,
-        modified = true,
+    icons = {  -- 图标配置
+      show = {  -- 显示的图标类型配置
+        file = false,  -- 文件
+        folder = false,  -- 文件夹
+        folder_arrow = false,  -- 文件夹节点显示箭头
+        git = true,  -- Git状态
+        modified = true,  -- 文件修改状态
+      },
+      symlink_arrow = ' ∞ ',  -- 软链接指向图标
+      glyphs = {
+        symlink = '',  -- 软链接图标
       },
       git_placement = 'signcolumn',  -- 将git状态标志放在标志列显示
       modified_placement = 'after',  -- 将修改状态标志放在文件末尾显示
-    }
+    },
+    special_files = {  -- 需要高亮的特殊文件, 使用高亮方案: NvimTreeSpecialFile
+      'Cargo.toml', 'Makefile', 'README.md', 'readme.md',
+    },
+    symlink_destination = true,  -- 显示软链接目标
   },
-  filters = {
-    dotfiles = true,  -- 隐藏文件显示控制. 按'H'切换
+  filters = {  -- 过滤器配置
+    dotfiles = true,  -- 不显示隐藏文件. 按'H'切换
   },
-  actions = {
-    file_popup = {
-      open_win_config = {
-        border = "rounded",  -- 浮动窗口样式. rounded:显示为圆角
-      }
-    }
+  actions = {  -- 各种处理配置
+    file_popup = {  -- 文件弹窗
+      open_win_config = {  -- 浮动窗口
+        border = 'rounded',  -- 边框样式. rounded:圆角
+      },
+    },
+    open_file = {  -- 打开文件
+      window_picker = {  -- 窗口选择器
+        enable = true,  -- 启用
+      },
+    },
   },
 })
 -- }

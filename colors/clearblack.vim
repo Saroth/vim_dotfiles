@@ -190,4 +190,63 @@ call s:HL('Ignore', s:darkgray1) " 忽略内容
 call s:HL('Error', s:white, s:red) " 错误标注. 如: DISABLE
 call s:HL('Todo', s:black, s:yellow) " 关键说明标注. 如: TODO FIXME XXX
 " }
+" { Plugins
+" Nvim-Tree
+
+" Default linked group follows name.
+
+" NvimTreeSymlink
+" NvimTreeSymlinkFolderName   (Directory)
+" NvimTreeFolderName          (Directory)
+" NvimTreeRootFolder
+" NvimTreeFolderIcon
+" NvimTreeOpenedFolderIcon    (NvimTreeFolderIcon)
+" NvimTreeClosedFolderIcon    (NvimTreeFolderIcon)
+" NvimTreeFileIcon
+" NvimTreeEmptyFolderName     (Directory)
+" NvimTreeOpenedFolderName    (Directory)
+" NvimTreeExecFile
+" NvimTreeOpenedFile
+" NvimTreeModifiedFile
+call s:HL('NvimTreeSpecialFile', s:darkgreen, s:none, 'bold,underline') " 特殊文件
+" NvimTreeImageFile
+" NvimTreeIndentMarker
+
+" NvimTreeLspDiagnosticsError         (DiagnosticError)
+" NvimTreeLspDiagnosticsWarning       (DiagnosticWarn)
+" NvimTreeLspDiagnosticsInformation   (DiagnosticInfo)
+" NvimTreeLspDiagnosticsHint          (DiagnosticHint)
+
+" NvimTreeGitDirty
+" NvimTreeGitStaged
+" NvimTreeGitMerge
+" NvimTreeGitRenamed
+" NvimTreeGitNew
+" NvimTreeGitDeleted
+" NvimTreeGitIgnored      (Comment)
+
+call s:HL('NvimTreeWindowPicker', s:white, s:darkgreen, 'bold') " 窗口选择器
+call s:HL('NvimTreeNormal', s:lightgray1, s:darkgray3) " 默认配色
+
+" There are also links for file highlight with git properties, linked to their
+" Git equivalent:
+
+" NvimTreeFileDirty       (NvimTreeGitDirty)
+" NvimTreeFileStaged      (NvimTreeGitStaged)
+" NvimTreeFileMerge       (NvimTreeGitMerge)
+" NvimTreeFileRenamed     (NvimTreeGitRenamed)
+" NvimTreeFileNew         (NvimTreeGitNew)
+" NvimTreeFileDeleted     (NvimTreeGitDeleted)
+" NvimTreeFileIgnored     (NvimTreeGitIgnored)
+
+" There are 2 highlight groups for the live filter feature
+
+" NvimTreeLiveFilterPrefix
+" NvimTreeLiveFilterValue
+
+" Color of the bookmark icon
+
+" NvimTreeBookmark
+
+" }
 
