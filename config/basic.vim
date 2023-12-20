@@ -83,7 +83,7 @@
   autocmd BufEnter * call s:set_indent()
   function s:set_indent() " 根据文件类型设置缩进
     let t = &filetype
-    let shortIndentLang = ['sql', 'lua', 'json', 'yaml',
+    let shortIndentLang = ['zsh', 'sql', 'lua', 'json', 'yaml',
           \'vue', 'html', 'javascript',
           \'css', 'less', 'scss', 'sass',
           \'go', 'python'] " 使用2字符宽度缩进的语言
@@ -94,7 +94,7 @@
       set tabstop=4
       set shiftwidth=4
     endif
-    let tabIndentLang = ['lua', 'go', 'python'] " 使用tab缩进的语言
+    let tabIndentLang = ['lua', 'go', 'python'] " 强制使用tab缩进的语言
     if (count(tabIndentLang, t) > 0)
       setlocal noexpandtab
     endif
@@ -123,6 +123,14 @@
   set foldcolumn=0 " 折叠标识列宽度
   set foldlevel=99 " 设置初始的折叠级别
   set foldmethod=marker foldmarker={,} " 设置代码折叠模式
+  " 自动格式化选项
+  "   j:  合并多行注释时自动移除注释符
+  "   c:  注释内容长度超出textwidth时，自动换行并添加注释符
+  "   r:  在注释行按Enter换行时，自动添加注释符
+  "   o:  在注释行按o换行时，自动添加注释符
+  "   q:  允许gq自动格式化注释
+  "   l:  编辑长度超出textwidth的注释，不自动换行
+  set formatoptions=jcrql
 " }
 " { Completion
   " " 设置自动补全提示内容的获取范围

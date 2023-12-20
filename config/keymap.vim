@@ -7,10 +7,8 @@
   noremap <C-j> 8<C-d>
   " 原功能: N:~ I:特殊字符组合输入; 新功能: 上滚屏
   noremap <C-k> 8<C-u>
-  " 反向选中一个词
+  " 选中一个词
   noremap vv viwO
-  " 正向选中一个词
-  noremap vV viw
   " 保持选中状态调整缩进
   vnoremap < <gv
   vnoremap > >gv
@@ -23,21 +21,14 @@
   cnoremap <expr> <Right> wildmenumode() ? "\<Down>" : "\<Right>"
 " }
 " { Function key
-  " F2:
   map <F2> :e $VIM/vimfiles/config/basic.vim <CR>
-  " F3:
   map <F3> :e $VIM/vimfiles/config/keymap.vim <CR>
-  " F4:
   map <F4> :e $VIM/vimfiles/config/plugin.vim <CR>
 
-  " F5:
   map <F5> :Update<CR>
-  " F8:
-  map <F8> :NvimTreeToggle<CR>
+  map <F8> :NvimTreeFindFileToggle<CR>
 
-  "  F9: next hunk
   map <F9> <Plug>(GitGutterNextHunk)
-  "  F10: previous hunk
   map <F10> <Plug>(GitGutterPrevHunk)
 " }
 
