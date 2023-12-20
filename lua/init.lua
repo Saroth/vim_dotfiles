@@ -1,4 +1,4 @@
 -- vim.opt.packpath:append(vim.env.VIM)
 
-require('plugin')
+require('plugins/init')
 
