@@ -1,5 +1,3 @@
--- XXX: 配置修改后需执行:PackerSync并重启
-
 plugins = {
   'packer', -- Packer manage itself
   'nvimtree',
@@ -8,7 +6,7 @@ plugins = {
 
 modules = {}
 for i = 1, #plugins do
-  modules[i] = require('plugins/'..plugins[i])
+  modules[i] = require('plugin/'..plugins[i])
   if modules[i].init then modules[i]:init() end
 end
 require('packer').startup(function(use)

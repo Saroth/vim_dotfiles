@@ -1,4 +1,4 @@
 let $VIM = $BASEPATH
 echo '[TEST] Load configs from:' . $VIM
-source $VIM/config/init.vim
+source $VIM/init.vim
 

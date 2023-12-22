@@ -1,3 +1,5 @@
+-- XXX: 配置修改后需执行:PackerSync并重启
+
 M = {}
 M.repo = 'wbthomason/packer.nvim'
 M.init_res = false

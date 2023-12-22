@@ -190,8 +190,7 @@ call s:HL('Ignore', s:darkgray1) " 忽略内容
 call s:HL('Error', s:white, s:red) " 错误标注. 如: DISABLE
 call s:HL('Todo', s:black, s:yellow) " 关键说明标注. 如: TODO FIXME XXX
 " }
-" { Plugins
-" Nvim-Tree
+" { Nvim-Tree
 
 " Default linked group follows name.
 

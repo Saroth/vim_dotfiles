@@ -1,10 +1,8 @@
 " Description: Basic configurations
 
-" { Basic
+" { View
   set nocompatible " 不兼容模式. For Vim only
   set lazyredraw " 当运行宏时不重绘, 提高宏执行效率
-" }
-" { Display
   set number " 显示行号
   set nowrap " 超出显示空间时不换行
   set list " 显示不可见字符
@@ -27,22 +25,6 @@
   set winminheight=1 " 强制窗口最小高度
   set winminwidth=2 " 强制窗口最小宽度
   set winheight=9 " 当前窗口自动高度
-  autocmd BufEnter * call s:set_colorcolumn()
-  function s:set_colorcolumn() " 根据文件类型设置边界线和默认宽度
-    let t = &filetype
-    let fixSizeWindow = ['exproject', 'NvimTree']
-    if (count(fixSizeWindow, t) > 0) " 不调整指定插件的窗口大小
-      return
-    endif
-    let charLimit100 = ['rust', 'python'] " 每行限制100字符的语言
-    if (count(charLimit100, t) > 0)
-      set colorcolumn=100
-    else
-      set colorcolumn=80 " 边界线位置
-    endif
-    let &winwidth = &colorcolumn+8 " 当前窗口自动宽度
-    let &textwidth = &colorcolumn " 自动换行. 输入时超出长度自动换到下一行. 0:不启用
-  endfunction
 " }
 " { Status line
   set laststatus=2 " 总是显示状态栏
@@ -80,25 +62,6 @@
   set smarttab " 按backspace智能删除shiftwidth宽度的空格
   set cindent shiftwidth=4 " 设置C语言Tab长度为4个空格
   set cinoptions=l1,g0 " 设置C语言缩进规则(参考help手册)
-  autocmd BufEnter * call s:set_indent()
-  function s:set_indent() " 根据文件类型设置缩进
-    let t = &filetype
-    let shortIndentLang = ['zsh', 'sql', 'lua', 'json', 'yaml',
-          \'vue', 'html', 'javascript',
-          \'css', 'less', 'scss', 'sass',
-          \'go', 'python'] " 使用2字符宽度缩进的语言
-    if (count(shortIndentLang, t) > 0)
-      set tabstop=2
-      set shiftwidth=2
-    else
-      set tabstop=4
-      set shiftwidth=4
-    endif
-    let tabIndentLang = ['lua', 'go', 'python'] " 强制使用tab缩进的语言
-    if (count(tabIndentLang, t) > 0)
-      setlocal noexpandtab
-    endif
-  endfunction
 " }
 " { Edit
   set mouse= " 不使用鼠标. 方便在终端复制文字
@@ -132,7 +95,7 @@
   "   l:  编辑长度超出textwidth的注释，不自动换行
   set formatoptions=jcrql
 " }
-" { Completion
+" { Completion. Based on Ctag. Deprecated.
   " " 设置自动补全提示内容的获取范围
   " " i:    搜索包含, include文件较多时速度极慢. 使用<c-x><c-i>搜索include
   " " t:    搜索tags，tags文件较大时速度较慢. 使用<c-x><c-]>搜索tags

@@ -1,24 +1,19 @@
-" Description: Plugins configurations, managed by vim-plug, coc.nvim
-" Install: curl -fLo $VIM/vimfiles/autoload/plug.vim --create-dirs \
+" Install: curl -fLo $VIM/autoload/plug.vim --create-dirs \
 "       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 call plug#begin($VIM.'/plugged')
 
-" Plug 'morhetz/gruvbox'
 " MANAGER:
 " {
 " }
 
 " OTHER:
-" { winbar              窗口栏
-  " Plug 'fgheng/winbar.nvim'
-" }
 " { indent-guides       缩进指示条. <leader>ig
   Plug 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_enable_on_vim_startup = 1   " 自启动
   let g:indent_guides_auto_colors = 0 " 自动配色
   let g:indent_guides_color_change_percent = 4    " 缩进颜色改变比例
-  let g:indent_guides_guide_size = 1  " 缩进指示条宽度
+  let g:indent_guides_guide_size = 2  " 缩进指示条宽度
   let g:indent_guides_tab_guides = 1  " Tab显示缩进指示高亮
   let g:indent_guides_space_guides = 1    " 空格显示缩进指示高亮
   hi IndentGuidesOdd guifg=#3a3a3a guibg=#1c1c1c ctermfg=237 ctermbg=234
