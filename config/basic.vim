@@ -14,6 +14,8 @@
   set nocursorcolumn " 不高亮显示当前列
   set termguicolors " 终端界面开启真彩
   set matchpairs=(:),[:],{:} " 高亮显示匹配括号
+
+  set updatetime=600 " 延迟配置. 默认是4000
 " }
 " { Window
   set noequalalways " 分割或关闭窗口时, 不自动等分

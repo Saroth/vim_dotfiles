@@ -1,0 +1,1 @@
+function! theme#init(background)
