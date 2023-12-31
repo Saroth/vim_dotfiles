@@ -5,14 +5,14 @@ call plug#begin($VIM.'/plugged')
 
 " DECORATE:
 " { gitgutter       显示git修改标记
-    Plug 'airblade/vim-gitgutter'
-    " 标记符号
-    let g:gitgutter_sign_modified = '!'
-    let g:gitgutter_sign_modified_removed = '!_'
-    " Sign colors:
-    hi GitGutterAdd     guifg=#00df00 guibg=#121212 ctermfg=40  ctermbg=233
-    hi GitGutterChange  guifg=#ffaf00 guibg=#121212 ctermfg=214 ctermbg=233
-    hi GitGutterDelete  guifg=#ff0000 guibg=#121212 ctermfg=196 ctermbg=233
+  Plug 'airblade/vim-gitgutter'
+  " 标记符号
+  let g:gitgutter_sign_modified = '!'
+  let g:gitgutter_sign_modified_removed = '!_'
+  " Sign colors:
+  hi GitGutterAdd     guifg=#00df00 guibg=#121212 ctermfg=40  ctermbg=233
+  hi GitGutterChange  guifg=#ffaf00 guibg=#121212 ctermfg=214 ctermbg=233
+  hi GitGutterDelete  guifg=#ff0000 guibg=#121212 ctermfg=196 ctermbg=233
 " }
 " OTHER:
 " { indent-guides       缩进指示条. <leader>ig
