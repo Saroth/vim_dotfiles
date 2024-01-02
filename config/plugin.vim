@@ -20,7 +20,6 @@ call plug#begin($VIM.'/plugged')
   "                               下载地址: https://download.eclipse.org/jdtls/milestones/0.57.0/
   "                               安装到coc插件目录: ~/.config/coc/extensions/coc-java-data/server
   "                               当自动安装失败, 或jdtls启动失败时, 可尝试手动安装
-  " :CocInstall coc-lombok
   " :CocInstall coc-go        " 需要gotags/gopls:
   "                               sudo dnf install gotags golang-x-tools-gopls
   " :CocInstall coc-pyright   " 需要pylint/jedi:
@@ -173,9 +172,9 @@ call plug#begin($VIM.'/plugged')
   let g:gitgutter_sign_modified = '!'
   let g:gitgutter_sign_modified_removed = '!_'
   " Sign colors:
-  call theme#hl("GitGutterAdd", g:theme_green)
-  call theme#hl("GitGutterChange", g:theme_gold)
-  call theme#hl("GitGutterDelete", g:theme_darkred0)
+  call theme#hl("GitGutterAdd", g:theme_green, g:theme_darkgray4)
+  call theme#hl("GitGutterChange", g:theme_gold, g:theme_darkgray4)
+  call theme#hl("GitGutterDelete", g:theme_darkred0, g:theme_darkgray4)
   " Mappings
   map gn <Plug>(GitGutterNextHunk)
   map gp <Plug>(GitGutterPrevHunk)

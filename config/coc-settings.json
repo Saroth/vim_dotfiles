@@ -16,5 +16,5 @@
     "warningSign": "!>",
     "errorSign": "E>",
   },
-  "java.jdt.ls.vmargs": "-Xmx128M -noverify -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:~/.config/coc/extensions/coc-lombok-data/server/lombok.jar",
+  "java.jdt.ls.lombokSupport.enabled": true,
 }

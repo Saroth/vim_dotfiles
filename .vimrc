@@ -1,5 +1,3 @@
-" This file should be in the home directory
-
-let $VIM = $HOME . '/.config/vim'
-source $VIM/init.vim
+" For Vim only: This file should be in the home directory
+source ~/.config/vim/init.vim
 
