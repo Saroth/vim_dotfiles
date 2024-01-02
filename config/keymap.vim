@@ -21,14 +21,13 @@
   cnoremap <expr> <Right> wildmenumode() ? "\<Down>" : "\<Right>"
 " }
 " { Function key
-  map <F2> :e $VIM/vimfiles/config/basic.vim <CR>
-  map <F3> :e $VIM/vimfiles/config/keymap.vim <CR>
-  map <F4> :e $VIM/vimfiles/config/plugin.vim <CR>
+  map <F2> :e $VIM/config/basic.vim <CR>
+  map <F3> :e $VIM/config/keymap.vim <CR>
+  map <F4> :e $VIM/config/plugin.vim <CR>
 
-  map <F5> :Update<CR>
+  map <F5> :CocList<CR>
+  map <F6> :CocRestart<CR>
   map <F8> :NvimTreeFindFileToggle<CR>
 
-  map <F9> <Plug>(GitGutterNextHunk)
-  map <F10> <Plug>(GitGutterPrevHunk)
 " }
 

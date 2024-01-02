@@ -1,7 +1,6 @@
 " Description: Basic configurations
 
 " { View
-  set nocompatible " 不兼容模式. For Vim only
   set lazyredraw " 当运行宏时不重绘, 提高宏执行效率
   set number " 显示行号
   set nowrap " 超出显示空间时不换行
@@ -30,16 +29,16 @@
 " }
 " { Status line
   set laststatus=2 " 总是显示状态栏
-  let slWinType       = '%q' " 窗口类型. 如: [Quickfix List], [Location List]
-  let slFileName      = '%f' " 文件名
-  let slFileStatus    = '%1*%w%h%r%m%*' " 文件状态. [Preview][Help][RO][-]. 高亮User2
-  let slFileType      = '%y' " 文件类型
-  let slFileEncoding  = ' %{(&fenc == ""?&enc:&fenc).(&bomb?",BOM":"")}' " 文件编码
-  let slFileFormat    = ' %{&fileformat}' " 文件格式. dos/unix/mac
-  let slFilePosition  = ' %2*%l/%L,%v-0x%02B%*' " 光标信息. 高亮User4
+  let s:winType       = '%q' " 窗口类型. 如: [Quickfix List], [Location List]
+  let s:fileName      = '%f' " 文件名
+  let s:fileStatus    = '%1*%w%h%r%m%*' " 文件状态. [Preview][Help][RO][-]. 高亮User2
+  let s:fileType      = '%y' " 文件类型
+  let s:fileEncoding  = ' %{(&fenc == ""?&enc:&fenc).(&bomb?",BOM":"")}' " 文件编码
+  let s:fileFormat    = ' %{&fileformat}' " 文件格式. dos/unix/mac
+  let s:filePosition  = ' %2*%l/%L,%v-0x%02B%*' " 光标信息. 高亮User4
   " 超出可显空间时, 文件信息左侧截断
-  let slString        = '%<'.slWinType.slFileName.slFileStatus
-        \.' %='.slFileType.slFileEncoding.slFilePosition
+  let slString        = '%<'.s:winType.s:fileName.s:fileStatus
+        \.' %='.s:fileType.s:fileEncoding.s:filePosition
   set statusline=%!slString
 " }
 " { Encoding

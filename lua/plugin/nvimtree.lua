@@ -14,15 +14,15 @@ local function my_on_attach(nr)
   -- Edit
   vim.keymap.set('n', '<CR>', api.node.open.edit, opts('[Edit] Open'))
   vim.keymap.set('n', ';', api.node.run.cmd, opts('[Edit] Run Command'))
-  vim.keymap.set('n', 'i', api.node.show_info_popup, opts('[Edit] Info'))
+  vim.keymap.set('n', 'K', api.node.show_info_popup, opts('[Edit] Info'))
   vim.keymap.set('n', 'gy', api.fs.copy.absolute_path, opts('[Edit] Copy Absolute Path'))
   -- Jump
   vim.keymap.set('n', '<C-h>', api.node.navigate.parent_close, opts('[Jump] Close Directory'))
   vim.keymap.set('n', '<C-h>', api.node.navigate.parent, opts('[Jump] Parent Directory'))
   vim.keymap.set('n', '<C-n>', api.node.navigate.opened.next, opts('[Jump] Next Sibling'))
   vim.keymap.set('n', '<C-p>', api.node.navigate.opened.prev, opts('[Jump] Previous Sibling'))
-  vim.keymap.set('n', '<F9>', api.node.navigate.git.next, opts('[Jump] Next Git'))
-  vim.keymap.set('n', '<F10>', api.node.navigate.git.prev, opts('[Jump] Prev Git'))
+  vim.keymap.set('n', 'gn', api.node.navigate.git.next, opts('[Jump] Next Git'))
+  vim.keymap.set('n', 'gp', api.node.navigate.git.prev, opts('[Jump] Prev Git'))
   -- Tree
   vim.keymap.set('n', 'zm', function() api.tree.collapse_all(true) end, opts('[Tree] Collapse: keep buffers'))
   vim.keymap.set('n', 'zM', api.tree.collapse_all, opts('[Tree] Collapse'))

@@ -1,7 +1,7 @@
 plugins = {
   'packer', -- Packer manage itself
   'nvimtree',
-  'treesitter',
+  -- 'treesitter',
 }
 
 modules = {}

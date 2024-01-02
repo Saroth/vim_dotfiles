@@ -8,7 +8,6 @@
 call theme#init("clearblack", "dark")
 " { Window
 call theme#hl('Normal', g:theme_white, g:theme_darkgray3) " 普通文字
-call theme#hl('Normal', g:theme_white, g:theme_darkgray3) " 普通文字
 call theme#hl('NormalFloat', g:theme_white, g:theme_darkgray3) " 浮动窗口中的文字
 call theme#hl('NormalNC', g:theme_lightgray1, g:theme_darkgray3) " 非当前窗口中的文字
 call theme#hl('Pmenu', g:theme_lightgray1, g:theme_darkgray2) " 菜单
