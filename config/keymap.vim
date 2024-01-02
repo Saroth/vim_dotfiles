@@ -27,6 +27,7 @@
 
   map <F5> :CocList<CR>
   map <F6> :CocRestart<CR>
+  map <F7> :call CocAction('diagnosticRefresh')<CR>
   map <F8> :NvimTreeFindFileToggle<CR>
 
 " }

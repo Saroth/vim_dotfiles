@@ -38,4 +38,7 @@
   endfunction
   autocmd BufEnter * call s:set_colorcolumn()
 " }
+" { 在写入文件时进行代码诊断
+  autocmd BufWritePost * call CocAction('diagnosticRefresh')
+" }
 

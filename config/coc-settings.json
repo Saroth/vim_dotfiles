@@ -1,3 +1,20 @@
 {
-  "colors.enable": true
+  "suggest": {
+    "__tip_0": "// 默认不选中补全项",
+    "noselect": true,
+  },
+  "semanticTokens": {
+    "__tip_0": "// 启用语法高亮",
+    "enable": true,
+  },
+  "diagnostic": {
+    "__tip_0": "// 关闭自动诊断，改为在写入文件时",
+    "autoRefresh": false,
+    "__tip_1": "// 诊断标志",
+    "hintSign": "--",
+    "infoSign": "->",
+    "warningSign": "!>",
+    "errorSign": "E>",
+  },
+  "java.jdt.ls.vmargs": "-Xmx128M -noverify -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:~/.config/coc/extensions/coc-lombok-data/server/lombok.jar",
 }

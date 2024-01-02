@@ -6,29 +6,57 @@ call plug#begin($VIM.'/plugged')
 " Coc:
 " { coc.nvim            语言服务插件管理
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " :CocInstall coc-vimlsp
+  " :CocInstall coc-sql
+  " :CocInstall coc-xml
+  " :CocInstall coc-html
+  " :CocInstall coc-css
+  " :CocInstall coc-eslint    " 需要eslint: sudo npm install -g eslint
+  " :CocInstall coc-tsserver
+  " [x] :CocInstall coc-ccls      " 需要ccls: sudo dnf install ccls. 存在问题, 改用clangd
+  " :CocInstall coc-clangd    " 需要clangd
+  " :CocInstall coc-cmake
+  " :CocInstall coc-java      " 需要jdtls: 要求版本0.57.
+  "                               下载地址: https://download.eclipse.org/jdtls/milestones/0.57.0/
+  "                               安装到coc插件目录: ~/.config/coc/extensions/coc-java-data/server
+  "                               当自动安装失败, 或jdtls启动失败时, 可尝试手动安装
+  " :CocInstall coc-lombok
+  " :CocInstall coc-go        " 需要gotags/gopls:
+  "                               sudo dnf install gotags golang-x-tools-gopls
+  " :CocInstall coc-pyright   " 需要pylint/jedi:
+  "                               sudo pip3 install pylint jedi
+  " 补全插件:
+  " :CocInstall coc-tabnine   " AI补全, 内存占用极大
+  " :CocInstall coc-omni
+  " :CocInstall coc-snippets
+  " 其他插件:
+  " :CocInstall coc-highlight
   let g:coc_config_home = $VIM.'/config'
-  hi Pmenu        guibg=#303030 guifg=#d0d0d0             ctermbg=236 ctermfg=252
+  call theme#hl("CocFloating", g:theme_none, g:theme_darkgray2)
+  call theme#hl("CocFloatThumb", g:theme_none, g:theme_gray)
+  call theme#hl("CocFloatSbar", g:theme_none, g:theme_darkgray1)
+  call theme#hl("CocFloatDividingLine", g:theme_black)
+  call theme#hl("CocFloatActive", g:theme_none, g:theme_gray)
+  call theme#hl("CocErrorFloat", g:theme_red)
+  call theme#hl("CocHintFloat", g:theme_lightblue0)
 
-  " 使用<tab>触发补全
-  " NOTE: There's always complete item selected by default, you may want to enable
-  " no select by `"suggest.noselect": true` in your configuration file
-  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-  " other plugin before putting this into your config
-  inoremap <silent><expr> <TAB>
-        \ coc#pum#visible() ? coc#pum#next(1) :
-        \ CheckBackspace() ? "\<Tab>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-  " 使用<CR>选中补全项
-  " Make <CR> to accept selected completion item or notify coc.nvim to format
-  " <C-g>u breaks current undo, please make your own choice
-  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  " 使用<tab>触发补全，切换补全项，切换片段输入点.
+  " 可设置suggest.noselect默认不选中.
+  let g:coc_snippet_next = '<tab>'
   function! CheckBackspace() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
-
+  inoremap <silent><expr> <TAB>
+    \ coc#pum#visible() ? coc#_select_confirm() :
+    \ coc#expandableOrJumpable() ?
+    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    \ CheckBackspace() ? "\<TAB>" :
+    \ coc#refresh()
+  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+  " 使用<CR>选中补全项
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
   " 代码诊断点跳转
   nmap <silent> g[ <Plug>(coc-diagnostic-prev)
   nmap <silent> g] <Plug>(coc-diagnostic-next)
@@ -145,9 +173,9 @@ call plug#begin($VIM.'/plugged')
   let g:gitgutter_sign_modified = '!'
   let g:gitgutter_sign_modified_removed = '!_'
   " Sign colors:
-  hi GitGutterAdd     guifg=#00df00 guibg=#121212 ctermfg=40  ctermbg=233
-  hi GitGutterChange  guifg=#ffaf00 guibg=#121212 ctermfg=214 ctermbg=233
-  hi GitGutterDelete  guifg=#ff0000 guibg=#121212 ctermfg=196 ctermbg=233
+  call theme#hl("GitGutterAdd", g:theme_green)
+  call theme#hl("GitGutterChange", g:theme_gold)
+  call theme#hl("GitGutterDelete", g:theme_darkred0)
   " Mappings
   map gn <Plug>(GitGutterNextHunk)
   map gp <Plug>(GitGutterPrevHunk)
@@ -160,8 +188,8 @@ call plug#begin($VIM.'/plugged')
   let g:indent_guides_guide_size = 2  " 缩进指示条宽度
   let g:indent_guides_tab_guides = 1  " Tab显示缩进指示高亮
   let g:indent_guides_space_guides = 1    " 空格显示缩进指示高亮
-  hi IndentGuidesOdd guifg=#3a3a3a guibg=#1c1c1c ctermfg=237 ctermbg=234
-  hi IndentGuidesEven guifg=#4e4e4e guibg=#303030 ctermfg=239 ctermbg=236
+  call theme#hl("IndentGuidesOdd", g:theme_darkgray1, g:theme_darkgray0)
+  call theme#hl("IndentGuidesEven", g:theme_darkgray1, g:theme_darkgray2)
 " }
 " OTHER:
 " { xterm-color-table   终端颜色表. :XtermColorTable

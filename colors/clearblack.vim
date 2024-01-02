@@ -10,7 +10,7 @@ call theme#init("clearblack", "dark")
 call theme#hl('Normal', g:theme_white, g:theme_darkgray3) " 普通文字
 call theme#hl('NormalFloat', g:theme_white, g:theme_darkgray3) " 浮动窗口中的文字
 call theme#hl('NormalNC', g:theme_lightgray1, g:theme_darkgray3) " 非当前窗口中的文字
-call theme#hl('Pmenu', g:theme_lightgray1, g:theme_darkgray2) " 菜单
+call theme#hl('Pmenu', g:theme_lightgray1, g:theme_darkgray1) " 菜单
 call theme#hl('PmenuSel', g:theme_white, g:theme_darkgray0) " 菜单选中项
 call theme#hl('PmenuSbar', g:theme_none, g:theme_darkgray1) " 菜单滚动条
 call theme#hl('PmenuThumb', g:theme_none, g:theme_gray) " 菜单滚动条滑块
@@ -45,7 +45,7 @@ call theme#set_general()
 " }
 " { Search
 call theme#hl('Search', g:theme_black, g:theme_gold) " 匹配项
-call theme#hl('CurSearch', g:theme_black, g:theme_orange) " 光标下的匹配项
+call theme#hl('CurSearch', g:theme_black, g:theme_purple) " 光标下的匹配项
 hi! link IncSearch Search
 hi! link Substitute Search
 call theme#hl('MatchParen', g:theme_gold, g:theme_none, 'bold,underline') " 匹配的括号对
@@ -88,7 +88,7 @@ call theme#hl('Number', g:theme_wheaten2) " 数值
 call theme#hl('Boolean', g:theme_wheaten1, g:theme_none, 'bold') " 二值. TRUE, false
 call theme#hl('Float', g:theme_wheaten1) " 浮点数
 
-call theme#hl('Identifier', g:theme_deepblue) " 任何变量
+call theme#hl('Identifier', g:theme_lightblue0) " 任何变量
 call theme#hl('Function', g:theme_lightgreen1, g:theme_none, 'bold') " 函数, 方法
 
 call theme#hl('Statement', g:theme_darkred1) " 关键字
@@ -110,7 +110,7 @@ call theme#hl('StorageClass', g:theme_lightred0) " static, register, volatile co
 call theme#hl('Structure', g:theme_lightgreen0) " struct, union, enum ...
 call theme#hl('Typedef', g:theme_lightgreen0, g:theme_none, 'bold') " typedef
 
-call theme#hl('Special', g:theme_gray) " 通用特殊符号
+call theme#hl('Special', g:theme_lightgreen0, g:theme_none, 'bold') " 通用特殊符号
 call theme#hl('SpecialChar', g:theme_lightyellow, g:theme_darkgray2) " 常量中的特殊字符
 call theme#hl('Tag', g:theme_deepblue) " 可ctrl-]跳转的符号
 call theme#hl('Delimiter', g:theme_lightgray0) " 需要关注的字符

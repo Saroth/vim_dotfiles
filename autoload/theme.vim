@@ -31,8 +31,10 @@ let g:theme_lightgreen1 = ['#87df87', 114]
 let g:theme_lightgreen0 = ['#5faf5f', 71]
 let g:theme_green = ['#00ff00', 46]
 let g:theme_darkgreen = ['#00af00', 34]
+let g:theme_lightblue0 = ['#00afdf', 38]
 let g:theme_deepblue = ['#00dfff', 45]
 let g:theme_blue = ['#005fdf', 26]
+let g:theme_purple = ['#df00af', 163]
 
 let s:general_background = v:null
 let s:general_emphasis = v:null
