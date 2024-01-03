@@ -1,4 +1,4 @@
-let $VIM = $HOME . '/.config/vim'
+let $VIM = $HOME . '/.config/nvim'
 set runtimepath+=$VIM " 将路径添加到rtp, 用于加载autoload, lua, colors等配置
 
 if has('patch-1.0.0')

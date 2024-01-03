@@ -1,11 +1,11 @@
 {
   "suggest": {
     "__tip_0": "// 默认不选中补全项",
-    "noselect": true,
+    "noselect": true
   },
   "semanticTokens": {
     "__tip_0": "// 启用语法高亮",
-    "enable": true,
+    "enable": true
   },
   "diagnostic": {
     "__tip_0": "// 关闭自动诊断，改为在写入文件时",
@@ -14,7 +14,7 @@
     "hintSign": "--",
     "infoSign": "->",
     "warningSign": "!>",
-    "errorSign": "E>",
+    "errorSign": "E>"
   },
-  "java.jdt.ls.lombokSupport.enabled": true,
+  "java.jdt.ls.lombokSupport.enabled": true
 }

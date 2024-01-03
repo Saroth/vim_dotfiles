@@ -1,16 +1,12 @@
-### NeoVim
+### Vim/NeoVim
 *.swp
 *.swo
 *.spec
-
-### Plugin
+.exvim.*/
+*.vimproject
 plugged/
 pack/
 site/
 
-.exvim.*/
-*.vimproject
-
 ### Other
-
 

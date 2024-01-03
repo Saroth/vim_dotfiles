@@ -120,7 +120,7 @@ function M:setup()
     },
   }
   require('nvim-tree').setup(nvim_tree_setup)
-  vim.keymap.set('n', '<leader>ff', function()  -- 在NvimTree中定位当前文件
+  vim.keymap.set('n', '<leader>fc', function()  -- 在NvimTree中定位当前文件
     vim.cmd('NvimTreeFindFile')
   end)
   -- NvimTree相关自动命令

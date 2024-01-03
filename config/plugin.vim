@@ -165,6 +165,55 @@ call plug#begin($VIM.'/plugged')
   " Resume latest coc list
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " }
+" Manager:
+" { fugitive            Git管理. Invoke most by :Git *** :Gdiff :Gstatus ...
+  Plug 'tpope/vim-fugitive'
+" }
+" SEARCH:
+" { LeaderF             文件搜索. invoke by <leader>ff
+  " nvim依赖pynvim: pip3 install pynvim
+  Plug 'Yggdroot/LeaderF'
+  " 文件搜索触发键
+  let g:Lf_ShortcutF = '<leader>ff'
+  " 缓存搜索触发键
+  let g:Lf_ShortcutB = '<leader>fb'
+  " 光标闪烁
+  let g:Lf_CursorBlink = 0
+  " 状态栏分隔符
+  let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+  " 修改内建映射
+  let g:Lf_CommandMap = {'<C-S>': ['<C-V>']}
+  " 忽略匹配
+  let g:Lf_WildIgnore = {
+        \ 'dir': ['.svn','.git','.hg'],
+        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+        \}
+  " 如果工程有版本管理, 则使用版本管理工具索引文件, g:Lf_WildIgnore将失效
+  let g:Lf_UseVersionControlTool = 1
+" }
+" { ctrlsf              全局搜索
+  Plug 'dyng/ctrlsf.vim'
+  let g:ctrlsf_auto_focus = {
+        \ "at": "start"
+        \ }
+  " 结果上下文行数
+  let g:ctrlsf_context = '-C 1'
+  " 1:正则搜索, 或使用-R选项
+  let g:ctrlsf_regex_pattern = 0
+  " 异步搜索
+  let g:ctrlsf_search_mode = 'async'
+  " 紧凑显示
+  let g:ctrlsf_default_view_mode = 'compact'
+  let g:ctrlsf_position = 'bottom'
+  let g:ctrlsf_winsize = '30%'
+  nmap     <leader>gg <Plug>CtrlSFCwordExec
+  vmap     <leader>gg <Plug>CtrlSFVwordExec
+  nmap     <leader>gw <Plug>CtrlSFCCwordExec
+  nmap     <leader>gp <Plug>CtrlSFPwordExec
+  nnoremap <leader>go :CtrlSFOpen<CR>
+  nnoremap <leader>gt :CtrlSFToggle<CR>
+  inoremap <leader>gt <Esc>:CtrlSFToggle<CR>
+" }
 " Decorate:
 " { gitgutter           显示git修改标记
   Plug 'airblade/vim-gitgutter'
