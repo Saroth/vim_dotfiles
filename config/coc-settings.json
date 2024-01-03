@@ -10,11 +10,19 @@
   "diagnostic": {
     "__tip_0": "// 关闭自动诊断，改为在写入文件时",
     "autoRefresh": false,
-    "__tip_1": "// 诊断标志",
-    "hintSign": "--",
-    "infoSign": "->",
-    "warningSign": "!>",
-    "errorSign": "E>"
+    "__tip_1": "// 关闭诊断标志，仅显示行号高亮",
+    "hintSign": "",
+    "infoSign": "",
+    "warningSign": "",
+    "errorSign": ""
   },
-  "java.jdt.ls.lombokSupport.enabled": true
+  "colors": {
+    "__tip_0": "// coc-highlight: 启用颜色代码高亮",
+    "enable": true
+  },
+  "java": {
+    "__tip_0": "// coc-java: 配置lombok支持",
+    "__tip_1": "// XXX: 需要手动下载lombok-{ver}.jar放到:~/.config/coc/extensions/node_modules/coc-java/lombok/目录",
+    "jdt.ls.lombokSupport.enabled": true,
+  }
 }

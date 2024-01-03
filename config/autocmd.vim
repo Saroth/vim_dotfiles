@@ -8,7 +8,7 @@
         \ 'go', 'python', 'vim'
         \ ]
   " 强制使用tab缩进的语言
-  let s:tabIndentLang = ['lua', 'go', 'python']
+  let s:tabIndentLang = ['go', 'python']
   function s:set_indent()
     let t = &filetype
     if (count(s:shortIndentLang, t) > 0)
@@ -46,7 +46,12 @@
   endfunction
   autocmd BufEnter * call s:set_colorcolumn()
 " }
-" { 在写入文件时进行代码诊断
-  autocmd BufWritePost * call CocAction('diagnosticRefresh')
+" { 在写文件时进行代码诊断
+  function s:diagnostic_refresh()
+    if (g:coc_service_initialized > 0)
+      call CocAction('diagnosticRefresh')
+    endif
+  endfunction
+  autocmd BufWritePost * call s:diagnostic_refresh()
 " }
 

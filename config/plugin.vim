@@ -3,8 +3,8 @@
 
 call plug#begin($VIM.'/plugged')
 
-" Coc:
-" { coc.nvim            语言服务插件管理
+" Manager:
+" { coc.nvim        语言服务插件管理
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " :CocInstall coc-vimlsp
   " :CocInstall coc-sql
@@ -27,7 +27,7 @@ call plug#begin($VIM.'/plugged')
   " 补全插件:
   " :CocInstall coc-tabnine   " AI补全, 内存占用极大
   " :CocInstall coc-omni
-  " :CocInstall coc-snippets
+  " :CocInstall coc-snippets  " 代码块方案
   " 其他插件:
   " :CocInstall coc-highlight
   let g:coc_config_home = $VIM.'/config'
@@ -165,24 +165,52 @@ call plug#begin($VIM.'/plugged')
   " Resume latest coc list
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " }
-" Manager:
-" { fugitive            Git管理. Invoke most by :Git *** :Gdiff :Gstatus ...
+" { fugitive        Git管理. Invoke most by :Git *** :Gdiff :Gstatus ...
   Plug 'tpope/vim-fugitive'
 " }
-" SEARCH:
-" { LeaderF             文件搜索. invoke by <leader>ff
+" Completion:
+" { Visincr         快捷递增输入. Block selected and type :I, :II, :IO, :IIO, :IR, :IIR, IX
+  Plug 'vim-scripts/Visincr'
+" }
+" { auto-pairs      匹配括号自动补全
+  Plug 'jiangmiao/auto-pairs'
+" }
+" Formatter:
+" { vim-markdown    Markdowm语法支持. 功能: 段落折叠, 文本格式
+  Plug 'plasticboy/vim-markdown'
+  let g:vim_markdown_folding_disabled=0 " 禁用折叠
+  let g:vim_markdown_folding_style_pythonic = 1 " 类似python-mode的折叠样式
+  let g:vim_markdown_override_foldtext = 0 " 不设置折叠文本
+  let g:vim_markdown_math=1 " 使用数学符号
+" }
+" { vim-easy-align  代码对齐. selected and type :EasyAlign
+  Plug 'junegunn/vim-easy-align'
+" }
+" { vim-table-mode  表格插件, Enable: <leader>tm
+"                                 Insert Column: <leader>tic
+"                                 Delete Row: <leader>tdc
+"                                 Delete Row: <leader>tdd
+  Plug 'dhruvasagar/vim-table-mode'
+  let g:table_mode_corner = '|' " 兼容Markdown的制表分隔符
+" }
+" { nerdcommenter   快捷注释 invoke by <leader>cc, ...
+  Plug 'scrooloose/nerdcommenter'
+  let g:NERDSpaceDelims = 1 " 在左注释符之后, 右注释符之前插入空格
+  let g:NERDRemoveExtraSpaces = 1 " 在取消注释后同时去掉添加的空格
+  " 其他类型的文件的注释符
+  let g:NERDCustomDelimiters = {
+        \ 'vimentry': { 'left': '--' },
+        \ }
+" }
+" Search:
+" { LeaderF         文件搜索. invoke by <leader>ff
   " nvim依赖pynvim: pip3 install pynvim
   Plug 'Yggdroot/LeaderF'
-  " 文件搜索触发键
-  let g:Lf_ShortcutF = '<leader>ff'
-  " 缓存搜索触发键
-  let g:Lf_ShortcutB = '<leader>fb'
-  " 光标闪烁
-  let g:Lf_CursorBlink = 0
-  " 状态栏分隔符
-  let g:Lf_StlSeparator = { 'left': '', 'right': '' }
-  " 修改内建映射
-  let g:Lf_CommandMap = {'<C-S>': ['<C-V>']}
+  let g:Lf_ShortcutF = '<leader>ff' " 文件搜索触发键
+  let g:Lf_ShortcutB = '<leader>fb' " 缓存搜索触发键
+  let g:Lf_CursorBlink = 0 " 光标闪烁
+  let g:Lf_StlSeparator = { 'left': '', 'right': '' } " 状态栏分隔符
+  let g:Lf_CommandMap = {'<C-S>': ['<C-V>']} " 修改内建映射
   " 忽略匹配
   let g:Lf_WildIgnore = {
         \ 'dir': ['.svn','.git','.hg'],
@@ -191,7 +219,7 @@ call plug#begin($VIM.'/plugged')
   " 如果工程有版本管理, 则使用版本管理工具索引文件, g:Lf_WildIgnore将失效
   let g:Lf_UseVersionControlTool = 1
 " }
-" { ctrlsf              全局搜索
+" { CtrlSF          全局搜索. invoke by <leader>gg
   Plug 'dyng/ctrlsf.vim'
   let g:ctrlsf_auto_focus = {
         \ "at": "start"
@@ -214,8 +242,13 @@ call plug#begin($VIM.'/plugged')
   nnoremap <leader>gt :CtrlSFToggle<CR>
   inoremap <leader>gt <Esc>:CtrlSFToggle<CR>
 " }
+" { sneak.Vim       字符跳转, 增强f/F功能. 跳转到指定的2个字符. invoke by f??
+  Plug 'justinmk/vim-sneak'
+  map f <Plug>Sneak_s
+  map F <Plug>Sneak_S
+" }
 " Decorate:
-" { gitgutter           显示git修改标记
+" { gitgutter       显示git修改标记
   Plug 'airblade/vim-gitgutter'
   " 标记符号
   let g:gitgutter_sign_modified = '!'
@@ -228,20 +261,59 @@ call plug#begin($VIM.'/plugged')
   map gn <Plug>(GitGutterNextHunk)
   map gp <Plug>(GitGutterPrevHunk)
 " }
-" { indent-guides       缩进指示条. <leader>ig
-  Plug 'nathanaelkane/vim-indent-guides'
+" { indent-guides   缩进指示条. Enable/Disable: <leader>ig
+  " Plug 'nathanaelkane/vim-indent-guides'
   let g:indent_guides_enable_on_vim_startup = 1   " 自启动
-  let g:indent_guides_auto_colors = 0 " 自动配色
+  let g:indent_guides_auto_colors = 1 " 自动配色
   let g:indent_guides_color_change_percent = 4    " 缩进颜色改变比例
   let g:indent_guides_guide_size = 2  " 缩进指示条宽度
   let g:indent_guides_tab_guides = 1  " Tab显示缩进指示高亮
   let g:indent_guides_space_guides = 1    " 空格显示缩进指示高亮
-  call theme#hl("IndentGuidesOdd", g:theme_darkgray1, g:theme_darkgray0)
-  call theme#hl("IndentGuidesEven", g:theme_darkgray1, g:theme_darkgray2)
 " }
-" OTHER:
-" { xterm-color-table   终端颜色表. :XtermColorTable
+" { rainbow         括号高亮匹配
+  Plug 'luochen1990/rainbow'
+  let g:rainbow_active = 1
+  let g:rainbow_conf = {
+        \ 'guifgs': [
+        \   '#ff0000', '#ff8700', '#ffff00', '#87ff00',
+        \   '#00ff00', '#00ff87', '#00ffff', '#00a7ff',
+        \   '#5f5fff', '#a700ff', '#ff00ff', '#ff0087',
+        \ ],
+        \ 'ctermfgs': [
+        \   196, 208, 226, 118,
+        \   46, 48, 51, 33,
+        \   63, 93, 13, 198,
+        \ ],
+        \ 'operators': '_,_',
+        \ 'parentheses': [
+        \   'start=/(/ end=/)/ fold',
+        \   'start=/\[/ end=/\]/ fold',
+        \   'start=/{/ end=/}/ fold',
+        \ ],
+        \ 'separately': { '*': {}, }
+        \ }
+" }
+" { xterm-color-table       终端颜色表. :XtermColorTable
   Plug 'guns/xterm-color-table.vim'
+" }
+" { markdown-preview.nvim   Markdown实时预览, invoked by :MarkdownPreview
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+  let g:mkdp_auto_start = 0 " 1: 打开markdown文件buffer时自动打开预览
+  let g:mkdp_auto_close = 1 " 1: 关闭buffer时自动关闭预览
+  let g:mkdp_refresh_slow = 1 " 1: 仅保存或退出编辑模式时刷新预览
+  let g:mkdp_browser = '' " 预览使用的浏览器
+  let g:mkdp_echo_preview_url = 1 " 显示预览地址
+  let g:mkdp_port = '' " 自定义端口, 使用固定端口会导致无法多开
+  let g:mkdp_open_to_the_world = 1 " 局域网内可访问
+  " let g:mkdp_theme = 'light' 默认主题
+  " 样式配置
+  " let g:mkdp_markdown_css = $VIM.'/vimfiles/tools/css/markdown.css'
+  " let g:mkdp_highlight_css = $VIM.'/vimfiles/tools/css/highlight.css'
+  " 转换选项.
+  " uml.imageFormat: 默认为img, 生成png图片, png中文字体模糊, 改用svg图片
+  let g:mkdp_preview_options = {
+        \ 'uml': { 'imageFormat': 'svg' },
+        \ }
 " }
 
 " All of your Plugs must be added before the following line

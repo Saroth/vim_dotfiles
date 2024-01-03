@@ -25,9 +25,9 @@
   map <F3> :e $VIM/config/keymap.vim <CR>
   map <F4> :e $VIM/config/plugin.vim <CR>
 
-  map <F5> :CocList<CR>
-  map <F6> :CocRestart<CR>
-  map <F7> :call CocAction('diagnosticRefresh')<CR>
+  map <F5> :call CocAction('diagnosticRefresh')<CR>
+  map <F6> :CocList<CR>
+  map <F7> :CocRestart<CR>
   map <F8> :NvimTreeFindFileToggle<CR>
 
 " }

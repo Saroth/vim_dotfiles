@@ -13,7 +13,7 @@
   set nocursorcolumn " 不高亮显示当前列
   set termguicolors " 终端界面开启真彩
   set matchpairs=(:),[:],{:} " 高亮显示匹配括号
-  set signcolumn=yes " 总是显示标志列
+  set signcolumn=auto " 显示标志列
 
   set updatetime=600 " 延迟配置. 默认是4000
 " }

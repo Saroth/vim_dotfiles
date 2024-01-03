@@ -22,7 +22,7 @@ function M:setup()
     auto_install = true,
     ignore_install = { }, -- List of parsers to ignore installing (for 'all')
     highlight = {
-      enable = true, -- 启用基于TreeSitter的代码高亮
+      enable = false, -- 启用基于TreeSitter的代码高亮. XXX: 已有Coc的语法高亮，不启用
       disable = { }, -- 禁用高亮的语言. NOTE: 此处填写解析器名, 而不是文件类型
       disable = function(lang, buf) -- 灵活控制. 不对大文件启用高亮
         local max_filesize = 100 * 1024 -- 100 KB
