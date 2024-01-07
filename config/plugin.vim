@@ -46,14 +46,13 @@ call plug#begin($VIM.'/plugged')
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
-  inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#_select_confirm() :
-    \ coc#expandableOrJumpable() ?
-    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-    \ CheckBackspace() ? "\<TAB>" :
-    \ coc#refresh()
+  inoremap <silent><expr> <esc>
+      \ coc#pum#visible() ? coc#pum#cancel() : "\<esc>"
+  inoremap <silent><expr> <tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<tab>" : coc#refresh()
   inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-  " 使用<CR>选中补全项
+  " 使用<CR>选中补全项。如需要忽略补全直接换行，按<c-j>
   inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
         \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
   " 代码诊断点跳转
@@ -93,21 +92,18 @@ call plug#begin($VIM.'/plugged')
   " Example: `<leader>aap` for current paragraph
   xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
-
   " Remap keys for applying code actions at the cursor position
   nmap <leader>ac  <Plug>(coc-codeaction-cursor)
   " Remap keys for apply code actions affect whole buffer
   nmap <leader>as  <Plug>(coc-codeaction-source)
   " Apply the most preferred quickfix action to fix diagnostic on the current line
   nmap <leader>qf  <Plug>(coc-fix-current)
-
   " Remap keys for applying refactor code actions
   nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
   xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
   nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-
   " Run the Code Lens action on the current line
-  nmap <leader>cl  <Plug>(coc-codelens-action)
+  " nmap <leader>cl  <Plug>(coc-codelens-action)  " 与注释插件冲突
 
   " Map function and class text objects
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server
@@ -262,13 +258,15 @@ call plug#begin($VIM.'/plugged')
   map gp <Plug>(GitGutterPrevHunk)
 " }
 " { indent-guides   缩进指示条. Enable/Disable: <leader>ig
-  " Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'preservim/vim-indent-guides'
   let g:indent_guides_enable_on_vim_startup = 1   " 自启动
   let g:indent_guides_auto_colors = 1 " 自动配色
   let g:indent_guides_color_change_percent = 4    " 缩进颜色改变比例
-  let g:indent_guides_guide_size = 2  " 缩进指示条宽度
-  let g:indent_guides_tab_guides = 1  " Tab显示缩进指示高亮
-  let g:indent_guides_space_guides = 1    " 空格显示缩进指示高亮
+  let g:indent_guides_guide_size = 1  " 缩进指示条宽度
+  let g:indent_guides_start_level = 2 " 显示起始列
+  let g:indent_guides_exclude_buftype = 1   " 在非文件缓冲区禁用
+  " 不显示的文件类型
+  let g:indent_guides_exclude_filetypes = ['help', 'NvimTree']
 " }
 " { rainbow         括号高亮匹配
   Plug 'luochen1990/rainbow'

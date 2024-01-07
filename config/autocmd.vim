@@ -2,7 +2,7 @@
 " { 根据文件类型设置缩进
   " 使用2字符宽度缩进的语言
   let s:shortIndentLang = [
-        \ 'zsh', 'sql', 'lua', 'json', 'yaml',
+        \ 'sh', 'zsh', 'sql', 'lua', 'json', 'yaml',
         \ 'vue', 'html', 'javascript',
         \ 'css', 'less', 'scss', 'sass',
         \ 'go', 'python', 'vim'
