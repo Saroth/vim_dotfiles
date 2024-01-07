@@ -237,6 +237,9 @@ call plug#begin($VIM.'/plugged')
   nnoremap <leader>go :CtrlSFOpen<CR>
   nnoremap <leader>gt :CtrlSFToggle<CR>
   inoremap <leader>gt <Esc>:CtrlSFToggle<CR>
+  let g:ctrlsf_mapping = {
+        \ "quit": "<esc>",
+        \ }
 " }
 " { sneak.Vim       字符跳转, 增强f/F功能. 跳转到指定的2个字符. invoke by f??
   Plug 'justinmk/vim-sneak'
