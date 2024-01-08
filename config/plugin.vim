@@ -24,6 +24,7 @@ call plug#begin($VIM.'/plugged')
   "                               sudo dnf install gotags golang-x-tools-gopls
   " :CocInstall coc-pyright   " 需要pylint/jedi:
   "                               sudo pip3 install pylint jedi
+  " :CocInstall coc-sumneko-lua   " lua语法补全, 支持nvim接口补全
   " 补全插件:
   " :CocInstall coc-tabnine   " AI补全, 内存占用极大
   " :CocInstall coc-omni
@@ -46,8 +47,6 @@ call plug#begin($VIM.'/plugged')
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
-  inoremap <silent><expr> <esc>
-      \ coc#pum#visible() ? coc#pum#cancel() : "\<esc>"
   inoremap <silent><expr> <tab>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<tab>" : coc#refresh()
@@ -269,7 +268,7 @@ call plug#begin($VIM.'/plugged')
   let g:indent_guides_start_level = 2 " 显示起始列
   let g:indent_guides_exclude_buftype = 1   " 在非文件缓冲区禁用
   " 不显示的文件类型
-  let g:indent_guides_exclude_filetypes = ['help', 'NvimTree']
+  let g:indent_guides_exclude_filetypes = ['help', 'NvimTree', 'dashboard']
 " }
 " { rainbow         括号高亮匹配
   Plug 'luochen1990/rainbow'

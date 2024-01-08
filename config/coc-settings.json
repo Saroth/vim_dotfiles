@@ -25,5 +25,8 @@
     "__tip_1": "// XXX: 需要手动下载lombok-{ver}.jar放到:~/.config/coc/extensions/node_modules/coc-java/lombok/目录",
     "jdt.ls.lombokSupport.enabled": true,
     "compile.nullAnalysis.mode": "automatic"
+  },
+  "sumneko-lua": {
+    "enableNvimLuaDev": true
   }
 }

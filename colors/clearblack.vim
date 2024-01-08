@@ -112,72 +112,14 @@ call theme#hl('Typedef', g:theme_lightgreen0, g:theme_none, 'bold') " typedef
 
 call theme#hl('Special', g:theme_lightgreen0, g:theme_none, 'bold') " 通用特殊符号
 call theme#hl('SpecialChar', g:theme_lightyellow, g:theme_darkgray2) " 常量中的特殊字符
-call theme#hl('Tag', g:theme_deepblue) " 可ctrl-]跳转的符号
+call theme#hl('Tag', g:theme_lightblue2) " 可ctrl-]跳转的符号
 call theme#hl('Delimiter', g:theme_lightgray0) " 需要关注的字符
 call theme#hl('SpecialComment', g:theme_lightred0) " 注释中的特殊字符
 call theme#hl('Debug', g:theme_gray) " 调试语句
 
-call theme#hl('Underlined', g:theme_deepblue, g:theme_none, 'underline') " 突出显示. 如HTML链接
+call theme#hl('Underlined', g:theme_lightblue1, g:theme_none, 'underline') " 突出显示. 如HTML链接
 call theme#hl('Ignore', g:theme_darkgray1) " 忽略内容
 call theme#hl('Error', g:theme_white, g:theme_red) " 错误标注. 如: DISABLE
 call theme#hl('Todo', g:theme_black, g:theme_yellow) " 关键说明标注. 如: TODO FIXME XXX
-" }
-" { Nvim-Tree
-
-" Default linked group follows name.
-
-" NvimTreeSymlink
-" NvimTreeSymlinkFolderName   (Directory)
-" NvimTreeFolderName          (Directory)
-" NvimTreeRootFolder
-" NvimTreeFolderIcon
-" NvimTreeOpenedFolderIcon    (NvimTreeFolderIcon)
-" NvimTreeClosedFolderIcon    (NvimTreeFolderIcon)
-" NvimTreeFileIcon
-" NvimTreeEmptyFolderName     (Directory)
-" NvimTreeOpenedFolderName    (Directory)
-" NvimTreeExecFile
-" NvimTreeOpenedFile
-" NvimTreeModifiedFile
-call theme#hl('NvimTreeSpecialFile', g:theme_darkgreen, g:theme_none, 'bold,underline') " 特殊文件
-" NvimTreeImageFile
-" NvimTreeIndentMarker
-
-" NvimTreeLspDiagnosticsError         (DiagnosticError)
-" NvimTreeLspDiagnosticsWarning       (DiagnosticWarn)
-" NvimTreeLspDiagnosticsInformation   (DiagnosticInfo)
-" NvimTreeLspDiagnosticsHint          (DiagnosticHint)
-
-" NvimTreeGitDirty
-" NvimTreeGitStaged
-" NvimTreeGitMerge
-" NvimTreeGitRenamed
-" NvimTreeGitNew
-" NvimTreeGitDeleted
-" NvimTreeGitIgnored      (Comment)
-
-call theme#hl('NvimTreeWindowPicker', g:theme_white, g:theme_darkgreen, 'bold') " 窗口选择器
-call theme#hl('NvimTreeNormal', g:theme_lightgray1, g:theme_darkgray3) " 默认配色
-
-" There are also links for file highlight with git properties, linked to their
-" Git equivalent:
-
-" NvimTreeFileDirty       (NvimTreeGitDirty)
-" NvimTreeFileStaged      (NvimTreeGitStaged)
-" NvimTreeFileMerge       (NvimTreeGitMerge)
-" NvimTreeFileRenamed     (NvimTreeGitRenamed)
-" NvimTreeFileNew         (NvimTreeGitNew)
-" NvimTreeFileDeleted     (NvimTreeGitDeleted)
-" NvimTreeFileIgnored     (NvimTreeGitIgnored)
-
-" There are 2 highlight groups for the live filter feature
-
-" NvimTreeLiveFilterPrefix
-" NvimTreeLiveFilterValue
-
-" Color of the bookmark icon
-
-" NvimTreeBookmark
-
 " }
 

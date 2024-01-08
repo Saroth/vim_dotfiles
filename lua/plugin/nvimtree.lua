@@ -89,7 +89,7 @@ function M:setup()
         git_placement = 'signcolumn',  -- 将git状态标志放在标志列显示
         modified_placement = 'after',  -- 将修改状态标志放在文件末尾显示
       },
-      special_files = { 
+      special_files = {
         -- 需要高亮的特殊文件, 使用高亮方案: NvimTreeSpecialFile
         'Cargo.toml', 'Makefile', 'README.md', 'readme.md',
       },
@@ -127,12 +127,22 @@ function M:setup()
   local nvim_tree_augroup = vim.api.nvim_create_augroup('nvim-tree settings', { clear = true })
   vim.api.nvim_create_autocmd({'BufEnter', 'BufLeave'}, {
     group = nvim_tree_augroup,
-    callback = function(ev) -- 进入和退出NvimTree时自动调整宽度
+    callback = function(_) -- 进入和退出NvimTree时自动调整宽度
       if vim.bo.filetype == 'NvimTree' then
         vim.api.nvim_win_set_width(0, nvim_tree_setup.view.width)
       end
     end
   })
+  -- 高亮配置
+  local t = require('util')
+  t.hl('NvimTreeNormal', vim.g.theme_lightgray1, vim.g.theme_darkgray3) -- 默认配色
+  t.hl('NvimTreeWindowPicker', vim.g.theme_white, vim.g.theme_darkgreen, 'bold') -- 窗口选择器
+  t.hl('NvimTreeSpecialFile', vim.g.theme_lightyellow, vim.g.theme_none, 'bold,underline') -- 特殊文件
+  t.hl('NvimTreeFolderName', vim.g.theme_lightblue3, vim.g.theme_none, 'bold') -- 目录
+  t.hl('NvimTreeOpenedFolderName', vim.g.theme_lightblue3, vim.g.theme_none, 'bold,underline') -- 打开的目录
+  t.hl('NvimTreeEmptyFolderName', vim.g.theme_gray, vim.g.theme_none, 'bold') -- 空目录
+  t.hl('NvimTreeSymlink', vim.g.theme_lightblue2) -- 文件软链接
+  t.hl('NvimTreeSymlinkFolderName', vim.g.theme_lightblue2, vim.g.theme_none, 'bold') -- 目录软链接
 end
 
 return M

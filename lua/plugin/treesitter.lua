@@ -23,8 +23,8 @@ function M:setup()
     ignore_install = { }, -- List of parsers to ignore installing (for 'all')
     highlight = {
       enable = false, -- 启用基于TreeSitter的代码高亮. XXX: 已有Coc的语法高亮，不启用
-      disable = { }, -- 禁用高亮的语言. NOTE: 此处填写解析器名, 而不是文件类型
-      disable = function(lang, buf) -- 灵活控制. 不对大文件启用高亮
+      -- disable = { }, -- 禁用高亮的语言. NOTE: 此处填写解析器名, 而不是文件类型
+      disable = function(_, buf) -- 灵活控制. 不对大文件启用高亮
         local max_filesize = 100 * 1024 -- 100 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then

@@ -1,11 +1,11 @@
-plugins = {
+local plugins = {
   'packer', -- Packer manage itself
   'nvimtree',
   'treesitter',
   'dashboard',
 }
 
-modules = {}
+local modules = {}
 for i = 1, #plugins do
   modules[i] = require('plugin/'..plugins[i])
   if modules[i].init then modules[i]:init() end
