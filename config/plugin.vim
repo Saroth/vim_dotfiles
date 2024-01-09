@@ -16,10 +16,8 @@ call plug#begin($VIM.'/plugged')
   " [x] :CocInstall coc-ccls      " 需要ccls: sudo dnf install ccls. 存在问题, 改用clangd
   " :CocInstall coc-clangd    " 需要clangd
   " :CocInstall coc-cmake
-  " :CocInstall coc-java      " 需要jdtls: 要求版本0.57.
-  "                               下载地址: https://download.eclipse.org/jdtls/milestones/0.57.0/
-  "                               安装到coc插件目录: ~/.config/coc/extensions/coc-java-data/server
-  "                               当自动安装失败, 或jdtls启动失败时, 可尝试手动安装
+  " :CocInstall coc-java      " 自动安装jdtls. 需要手动下载lombok-{ver}.jar放到:~/.config/coc/extensions/node_modules/coc-java/lombok/目录
+  " :CocInstall coc-kotlin    " XXX: Incomplete
   " :CocInstall coc-go        " 需要gotags/gopls:
   "                               sudo dnf install gotags golang-x-tools-gopls
   " :CocInstall coc-pyright   " 需要pylint/jedi:
@@ -182,6 +180,9 @@ call plug#begin($VIM.'/plugged')
   let g:vim_markdown_folding_style_pythonic = 1 " 类似python-mode的折叠样式
   let g:vim_markdown_override_foldtext = 0 " 不设置折叠文本
   let g:vim_markdown_math=1 " 使用数学符号
+" }
+" { kotlin-vim      Kotlin的语法支持.
+  Plug 'udalov/kotlin-vim'
 " }
 " { vim-easy-align  代码对齐. selected and type :EasyAlign
   Plug 'junegunn/vim-easy-align'
