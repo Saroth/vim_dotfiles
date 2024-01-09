@@ -31,6 +31,7 @@
         \ 'NvimTree': -1,
         \ 'rust': 100,
         \ 'python': 100,
+        \ 'dbui': 32,
         \ }
   function s:set_colorcolumn()
     let t = &filetype

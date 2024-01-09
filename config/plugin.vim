@@ -29,6 +29,7 @@ call plug#begin($VIM.'/plugged')
   " :CocInstall coc-tabnine   " AI补全, 内存占用极大
   " :CocInstall coc-omni
   " :CocInstall coc-snippets  " 代码块方案
+  " :CocInstall coc-db        " 基于数据库的sql补全插件, 基于vim-dadbod
   " 其他插件:
   " :CocInstall coc-highlight
   let g:coc_config_home = $VIM.'/config'
@@ -162,6 +163,10 @@ call plug#begin($VIM.'/plugged')
 " }
 " { fugitive        Git管理. Invoke most by :Git *** :Gdiff :Gstatus ...
   Plug 'tpope/vim-fugitive'
+" }
+" { dadbod.vim      数据库交互插件/UI. invoke by :DBUI
+  Plug 'tpope/vim-dadbod'
+  Plug 'kristijanhusak/vim-dadbod-ui'
 " }
 " Completion:
 " { Visincr         快捷递增输入. Block selected and type :I, :II, :IO, :IIO, :IR, :IIR, IX
