@@ -38,7 +38,7 @@ function M:setup()
       additional_vim_regex_highlighting = false,
     },
     indent = {
-      enable = true,  -- 启用基于TreeSitter的代码格式化。使用原生方式(=)触发格式化
+      enable = false,  -- 启用基于TreeSitter的代码格式化。使用原生方式(=)触发格式化
     },
   }
 end
