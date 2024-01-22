@@ -172,6 +172,7 @@ call plug#begin($VIM.'/plugged')
   let g:startify_bookmarks = [
         \ { 'h': '~' },
         \ { 'v': '~/.config/nvim' },
+        \ { 'c': getcwd() },
         \ ]
   let g:startify_lists = [
         \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
