@@ -9,6 +9,8 @@
         \ ]
   " 强制使用tab缩进的语言
   let s:tabIndentLang = ['go', 'python']
+  " 基于缩进折叠的语言
+  let s:foldByIndentLang = ['python']
   function s:set_indent()
     let t = &filetype
     if (count(s:shortIndentLang, t) > 0)
@@ -20,6 +22,9 @@
     endif
     if (count(s:tabIndentLang, t) > 0)
       setlocal noexpandtab
+    endif
+    if (count(s:foldByIndentLang, t) > 0)
+      set foldmethod=indent
     endif
   endfunction
   autocmd BufEnter * call s:set_indent()
@@ -48,11 +53,13 @@
   autocmd BufEnter * call s:set_colorcolumn()
 " }
 " { 在写文件时进行代码诊断
-  function s:diagnostic_refresh()
+  function! autocmd#diagnostic_refresh()
     if (g:coc_service_initialized > 0)
-      call CocAction('diagnosticRefresh')
+      if exists('*CocAction')
+        call CocAction('diagnosticRefresh')
+      endif
     endif
   endfunction
-  autocmd BufWritePost * call s:diagnostic_refresh()
+  autocmd BufWritePost * call autocmd#diagnostic_refresh()
 " }
 
