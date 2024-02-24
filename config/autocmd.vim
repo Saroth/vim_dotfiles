@@ -54,10 +54,9 @@
 " }
 " { 在写文件时进行代码诊断
   function! autocmd#diagnostic_refresh()
-    if (g:coc_service_initialized > 0)
-      if exists('*CocAction')
-        call CocAction('diagnosticRefresh')
-      endif
+    if exists('g:coc_service_initialized') &&
+          \ (g:coc_service_initialized > 0) && exists('*CocAction')
+      call CocAction('diagnosticRefresh')
     endif
   endfunction
   autocmd BufWritePost * call autocmd#diagnostic_refresh()

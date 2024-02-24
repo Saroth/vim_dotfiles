@@ -25,7 +25,7 @@
   map <F3> :e $VIM/config/keymap.vim <CR>
   map <F4> :e $VIM/config/plugin.vim <CR>
 
-  map <F5> :call autocmd#diagnostic_refresh()<CR>
+  map <F5> :call CocAction('diagnosticRefresh')<CR>
   map <F6> :CocList<CR>
   map <F7> :CocRestart<CR>
   map <F8> :NvimTreeFindFileToggle<CR>

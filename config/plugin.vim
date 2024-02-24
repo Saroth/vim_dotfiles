@@ -71,7 +71,9 @@ call plug#begin($VIM.'/plugged')
     endif
   endfunction
   " 光标停留时高亮符号和定义
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  if exists('*CocActionAsync')
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+  endif
   " 符号重命名
   nmap <leader>rn <Plug>(coc-rename)
   " 对选中代码格式化
