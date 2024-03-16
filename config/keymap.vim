@@ -21,14 +21,15 @@
   cnoremap <expr> <Right> wildmenumode() ? "\<Down>" : "\<Right>"
 " }
 " { Function key
-  map <F2> :e $VIM/config/basic.vim <CR>
-  map <F3> :e $VIM/config/keymap.vim <CR>
-  map <F4> :e $VIM/config/plugin.vim <CR>
+  noremap <F2> :e $VIM/config/basic.vim <CR>
+  noremap <F3> :e $VIM/config/keymap.vim <CR>
+  noremap <F4> :e $VIM/config/plugin.vim <CR>
 
-  map <F5> :call CocAction('diagnosticRefresh')<CR>
-  map <F6> :CocList<CR>
-  map <F7> :CocRestart<CR>
-  map <F8> :NvimTreeFindFileToggle<CR>
+  noremap <F5> :call CocAction('diagnosticRefresh')<CR>
+  noremap <F6> :CocList<CR>
+  noremap <F7> :CocRestart<CR>
+  noremap <F8> :NvimTreeFindFileToggle<CR>
 
+  noremap <C-l> :call autocmd#diagnostic_refresh()<CR><C-l>
 " }
 
