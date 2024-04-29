@@ -30,6 +30,6 @@
   noremap <F7> :CocRestart<CR>
   noremap <F8> :NvimTreeFindFileToggle<CR>
 
-  noremap <C-l> :call autocmd#diagnostic_refresh()<CR><C-l>
+  noremap <C-l> :call autocmd#diagnostic_refresh()<CR>:nohl<CR><C-l>
 " }
 
