@@ -27,7 +27,8 @@ call theme#hl('User2', g:theme_darkgreen)
 call theme#hl('StatusLine', g:theme_lightgray1) " 当前窗口的状态行
 call theme#set_general(g:theme_black)
 call theme#hl('StatusLineNC', g:theme_darkgray1) " 非当前窗口的状态行
-call theme#hl('VertSplit', g:theme_black) " 窗口左右分割列
+call theme#hl('VertSplit', g:theme_black) " 窗口左右分割列. Deprecated in NeoVim
+call theme#hl('WinSeparator', g:theme_black) " 窗口左右分割列
 call theme#hl('TabLineFill', g:theme_darkgray1, g:theme_black, 'underline') " Tab行背景
 call theme#hl('TabLine', g:theme_darkgray1, g:theme_darkgray4, 'underline') " 其他Tab标签
 call theme#hl('TabLineSel', g:theme_lightgray1, g:theme_none, 'bold') " 当前Tab标签

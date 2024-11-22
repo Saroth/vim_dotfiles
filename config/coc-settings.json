@@ -20,6 +20,7 @@
     "__tip_0": "// coc-highlight: 启用颜色代码高亮",
     "enable": true
   },
+  "inlayHint.enable": false,
   "java": {
     "__tip_0": "// coc-java: 配置lombok支持",
     "__tip_1": "// XXX: 需要手动下载lombok-{ver}.jar放到:~/.config/coc/extensions/node_modules/coc-java/lombok/目录",
