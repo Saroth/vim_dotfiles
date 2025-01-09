@@ -29,5 +29,6 @@
   },
   "sumneko-lua": {
     "enableNvimLuaDev": true
-  }
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

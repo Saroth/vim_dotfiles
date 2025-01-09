@@ -190,6 +190,7 @@ call plug#begin($VIM.'/plugged')
 " }
 " { auto-pairs      匹配括号自动补全
   Plug 'jiangmiao/auto-pairs'
+  let g:AutoPairsShortcutToggle = '<leader>tp'
 " }
 " Formatter:
 " { vim-markdown    Markdowm语法支持. 功能: 段落折叠, 文本格式
