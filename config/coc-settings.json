@@ -20,6 +20,9 @@
     "__tip_0": "// coc-highlight: 启用颜色代码高亮",
     "enable": true
   },
+  "go": {
+    "goplsPath": "/usr/bin/gopls"
+  },
   "inlayHint.enable": false,
   "java": {
     "__tip_0": "// coc-java: 配置lombok支持",
