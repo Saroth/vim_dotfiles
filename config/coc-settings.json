@@ -17,11 +17,16 @@
     "errorSign": ""
   },
   "colors": {
-    "__tip_0": "// coc-highlight: 启用颜色代码高亮",
+    "__tip_0": "// coc-highlight: 启用颜色代码高亮, 如: #green, #8aaf35",
     "enable": true
   },
   "go": {
-    "goplsPath": "/usr/bin/gopls"
+    "__tip_0": "// 配置gopls路径, 使用源安装的gopls",
+    "goplsPath": "/usr/bin/gopls",
+    "__tip_1": "// 打开语义高亮. 需同时启用semanticTokens.enable和go.goplsOptions.semanticTokens",
+    "goplsOptions": {
+      "semanticTokens": true
+    }
   },
   "inlayHint.enable": false,
   "java": {
