@@ -38,6 +38,13 @@ call plug#begin($VIM.'/plugged')
   call theme#hl("CocFloatActive", g:theme_none, g:theme_gray)
   call theme#hl("CocErrorFloat", g:theme_red)
   call theme#hl("CocHintFloat", g:theme_lightblue0)
+  call theme#hl("CocSemTypeTypeParameter", g:theme_blue)
+  call theme#hl("CocSemTypeParameter", g:theme_lightblue2)
+  call theme#hl("CocSemTypeVariable", g:theme_lightgray1)
+  call theme#hl("CocSemTypeAnnotation", g:theme_darkgreen, g:theme_none, "bold")
+  call theme#hl("CocSemTypeAnnotationMember", g:theme_lightblue2)
+  call theme#hl("CocSemTypeRecord", g:theme_lightgreen0)
+  call theme#hl("CocSemTypeRecordComponent", g:theme_lightgray1)
 
   " 使用<tab>触发补全，切换补全项，切换片段输入点.
   " 可设置suggest.noselect默认不选中.
