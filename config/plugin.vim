@@ -345,7 +345,10 @@ call plug#begin($VIM.'/plugged')
   " 转换选项.
   " uml.imageFormat: 默认为img, 生成png图片, png中文字体模糊, 改用svg图片
   let g:mkdp_preview_options = {
-        \ 'uml': { 'imageFormat': 'svg' },
+        \ 'uml': {
+        \ 'server': 'http://47.93.4.73:51801',
+        \ 'imageFormat': 'svg',
+        \ },
         \ }
 " }
 
