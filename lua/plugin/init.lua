@@ -2,6 +2,7 @@ local plugins = {
   'packer', -- Packer manage itself
   'nvimtree',
   -- 'treesitter',
+  'claudecode',
 }
 
 local modules = {}

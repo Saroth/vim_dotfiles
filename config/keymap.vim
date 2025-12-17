@@ -30,6 +30,10 @@
   noremap <F7> :CocRestart<CR>
   noremap <F8> :NvimTreeFindFileToggle<CR>
 
+  " 将所选内容(代码/文件)发送给Claude
+  noremap <F9> :ClaudeCodeSend<CR>
+  vnoremap <silent> <F9> :'<,'>ClaudeCodeSend<CR>
+
   noremap <C-l> :call autocmd#diagnostic_refresh()<CR>:nohl<CR><C-l>
 " }
 

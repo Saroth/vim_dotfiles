@@ -302,6 +302,7 @@ call plug#begin($VIM.'/plugged')
   let g:indent_guides_exclude_buftype = 1   " 在非文件缓冲区禁用
   " 不显示的文件类型
   let g:indent_guides_exclude_filetypes = ['help', 'NvimTree', 'dashboard', 'startify']
+  let g:indent_guides_exclude_buftypes = ['terminal', 'nofile']
 " }
 " { rainbow         括号高亮匹配
   Plug 'luochen1990/rainbow'
