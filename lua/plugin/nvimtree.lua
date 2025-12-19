@@ -140,6 +140,7 @@ function M:setup()
   t.hl('NvimTreeSpecialFile', vim.g.theme_lightyellow, vim.g.theme_none, 'bold,underline') -- 特殊文件
   t.hl('NvimTreeFolderName', vim.g.theme_lightblue3, vim.g.theme_none, 'bold') -- 目录
   t.hl('NvimTreeOpenedFolderName', vim.g.theme_lightblue3, vim.g.theme_none, 'bold,underline') -- 打开的目录
+  t.hl('NvimTreeOpenedHL', vim.g.theme_wheaten1, vim.g.theme_none, 'bold') -- 打开的文件
   t.hl('NvimTreeEmptyFolderName', vim.g.theme_gray, vim.g.theme_none, 'bold') -- 空目录
   t.hl('NvimTreeSymlink', vim.g.theme_lightblue2) -- 文件软链接
   t.hl('NvimTreeSymlinkFolderName', vim.g.theme_lightblue2, vim.g.theme_none, 'bold') -- 目录软链接

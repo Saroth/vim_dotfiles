@@ -2,9 +2,9 @@
 *.swp
 *.swo
 *.spec
-.exvim.*/
-*.vimproject
+*.old
 plugged/
+plugin/
 pack/
 site/
 .vim/
