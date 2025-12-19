@@ -3,11 +3,14 @@
 *.swo
 *.spec
 *.old
-plugged/
-plugin/
+/plugged/
+/plugin/
 pack/
 site/
 .vim/
 
 ### Other
+node_modules/
+package-lock.json
+package.json
 
