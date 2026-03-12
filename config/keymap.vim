@@ -28,7 +28,7 @@
   noremap <F5> :call CocAction('diagnosticRefresh')<CR>
   noremap <F6> :CocList<CR>
   " 清理Java工作区
-  noremap <silent> <C-F7> :CocCommand java.clean.workspace<CR>
+  nnoremap <silent> <C-F7> :CocCommand java.clean.workspace<CR>
   " 重启语言服务
   noremap <F7> :CocRestart<CR>
   noremap <F8> :NvimTreeFindFileToggle<CR>
