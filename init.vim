@@ -13,6 +13,6 @@ for $i in [
   source $VIM/config/$i.vim
 endfor
 if has('nvim') " For Neovim only: Load $VIM/lua/init.lua
-    lua require('')
+  lua require('')
 endif
 

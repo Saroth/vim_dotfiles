@@ -1,8 +1,12 @@
 M = {}
-M.repo = {
+local nvim_tree_spec = {
   'nvim-tree/nvim-tree.lua',
   requires = { 'nvim-tree/nvim-web-devicons', },
-} -- file icons
+}
+if vim.fn.has('nvim-0.10') == 0 then
+  nvim_tree_spec.tag = "compat-nvim-0.9"  -- 兼容WSL2的低版本NeoVim
+end
+M.repo = nvim_tree_spec
 
 local function my_on_attach(nr)
   -- 自定义映射配置
