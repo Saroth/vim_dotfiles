@@ -38,5 +38,10 @@
   "sumneko-lua": {
     "enableNvimLuaDev": true
   },
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+  "xml": {
+    "java.home": "/usr/lib/jvm/java-21-openjdk-amd64",
+    "__tip_0": "// false: 用java启动lemminx, true: 用原生二进制",
+    "server.preferBinary": false
+  }
 }

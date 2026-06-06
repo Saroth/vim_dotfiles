@@ -28,6 +28,7 @@ call plug#begin($VIM.'/plugged')
   " :CocInstall coc-omni
   " :CocInstall coc-snippets  " 代码块方案
   " :CocInstall coc-db        " 基于数据库的sql补全插件, 基于vim-dadbod
+  " :CocInstall coc-vue
   " 其他插件:
   " :CocInstall coc-highlight
   let g:coc_config_home = $VIM.'/config'
