@@ -4,6 +4,7 @@ local plugins = {
   -- 'treesitter',
   'claudecode',
   -- 'minuet', -- 依赖nvim-cmp作为补全前端, nvim-cmp与coc同时使用存在冲突
+  'sshfs',
 }
 
 local modules = {}
