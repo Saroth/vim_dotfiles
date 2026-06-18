@@ -66,7 +66,7 @@
   set cinoptions=l1,g0 " 设置C语言缩进规则(参考help手册)
 " }
 " { Edit
-  set mouse= " 不使用鼠标. 方便在终端复制文字
+  set mouse=a " 启用鼠标支持
   set nohidden " 未保存文件不允许切换缓冲区, 确保编辑结果正确写入
   set linebreak " 整词换行. 需要textwidth>0. 手动执行换行: gq
   " 设置<c-a>递增和<c-x>递减时, 支持的字符格式
