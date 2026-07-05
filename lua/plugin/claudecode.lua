@@ -15,8 +15,8 @@ function M:setup()
       provider = "none",
     },
   })
-  vim.keymap.set("n", "<leader>xc", "<cmd>ClaudeCodeToggle<CR>")
-  vim.keymap.set("n", "<leader>xa", "<cmd>ClaudeCodeAsk<CR>")
+  -- vim.keymap.set("n", "<leader>xc", "<cmd>ClaudeCodeToggle<CR>")
+  -- vim.keymap.set("n", "<leader>xa", "<cmd>ClaudeCodeAsk<CR>")
 end
 
 return M
