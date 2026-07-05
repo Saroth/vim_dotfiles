@@ -2,33 +2,94 @@ M = {}
 M.repo = {
   "nickjvandyke/opencode.nvim",
   version = "*",
+  requires = {
+    "nvim-lua/plenary.nvim",   -- 依赖
+    "folke/snacks.nvim",       -- snacks.nvim 可选但推荐（浮动终端/通知）
+  },
 }
 
 function M:setup()
-  require("opencode").setup({
-    -- MiMoCode 二进制名，确保在 $PATH 中或写绝对路径
-    -- cmd = "/usr/local/bin/mimo",
-    cmd = "mimo",
-    width = 0.38, -- 侧边栏宽度比例 (0~1)
-    -- 是否在打开时自动聚焦 Agent 面板
-    auto_focus = true,
-    send_context = { -- 向 Agent 发送上下文时的行为
-      include_buffer = true,   -- :OpenCodeAdd 加入当前 buffer
-      include_selection = true, -- visual mode 发送选区
+  -- 自动发现 server 端口
+  -- 优先级：环境变量 > 工程路径匹配 > 默认端口
+  local function discover_server(callback)
+    -- 1. 优先使用环境变量
+    local env_port = vim.env.OPENCODE_PORT
+    if env_port then
+      callback("http://localhost:" .. env_port)
+      return
+    end
+
+    -- 2. 发现所有服务，匹配当前工程路径
+    local nvim_cwd = vim.fn.getcwd()
+    local handle = io.popen("lsof -iTCP -sTCP:LISTEN -P -n 2>/dev/null | grep '.mimocode.*LISTEN'")
+    if handle then
+      local output = handle:read("*a")
+      handle:close()
+
+      for line in output:gmatch("[^\n]+") do
+        local pid = line:match("^%S+%s+(%d+)")
+        local port = line:match(":(%d+) %(LISTEN%)")
+        if pid and port then
+          -- 获取进程的工作目录
+          local cwd_link = vim.fn.resolve("/proc/" .. pid .. "/cwd")
+          if cwd_link and cwd_link ~= "" then
+            -- 检查是否匹配当前工程路径
+            if nvim_cwd:find(cwd_link, 1, true) or cwd_link:find(nvim_cwd, 1, true) then
+              callback("http://localhost:" .. port)
+              return
+            end
+          end
+        end
+      end
+    end
+
+    -- 3. 如果没有匹配的，使用默认端口
+    callback("http://localhost:4096")
+  end
+
+  vim.g.opencode_opts = {
+    server = {
+      url = discover_server,  -- 动态发现 server
+      start = false,  -- 禁用自动启动，手动管理 server
     },
-    -- diff 快捷键前缀（Accept / Deny 由 opencode TUI 处理）
-    -- keymaps = {
-    --   toggle = "<leader>ac",      -- 开关侧边栏
-    --   focus  = "<leader>af",      -- 聚焦侧边栏
-    --   add_buf = "<leader>ab",     -- 添加当前文件到对话
-    --   send_sel = "<leader>as",    -- [v]模式发送选区
-    --   accept_diff = "<leader>aa", -- Accept diff（需 TUI 内操作或通过 snacks）
-    --   deny_diff  = "<leader>ad",  -- Deny diff
-    -- },
-  }),
-  vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-    pattern = "*",
-    command = "checktime",
+  }
+
+  vim.o.autoread = true -- Required for vim.g.opencode_opts.events.reload
+
+  -- keymap.vim: <F9> 菜单
+  -- nvimtree.lua: go 发送文件路径
+  vim.keymap.set({ "n", "x" }, "go", function()
+    local op = require("opencode").operator("@this ")
+    if vim.fn.mode() == "n" then
+      return op .. "_"  -- normal 模式：发送当前行
+    else
+      return op  -- visual 模式：发送选区
+    end
+  end, { desc = "Send to OpenCode", expr = true })
+  -- gO: 打开交互式输入框（带上下文）
+  vim.keymap.set({ "n", "x" }, "gO", function()
+    require("opencode").ask("@this: ")
+  end, { desc = "Ask OpenCode" })
+
+  -- Handle OpenCode events
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "OpencodeEvent:*",
+    callback = function(args)
+      ---@type opencode.server.Event
+      local event = args.data.event
+
+      if event.type == "server.heartbeat" then
+        return -- 忽略 heartbeat 事件，避免频繁弹出通知
+      end
+      -- 处理其他有用的事件
+      if event.type == "session.status" then
+        vim.notify("OpenCode status: " .. event.properties.status.type)
+      elseif event.type == "file.edited" then
+        vim.notify("OpenCode edited a file")
+      elseif event.type == "permission.asked" then
+        vim.notify("OpenCode requests permission: " .. event.properties.permission)
+      end
+    end,
   })
 end
 

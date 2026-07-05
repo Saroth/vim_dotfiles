@@ -33,9 +33,9 @@
   noremap <F7> :CocRestart<CR>
   noremap <F8> :NvimTreeFindFileToggle<CR>
 
-  " 将所选内容(代码/文件)发送给Claude
-  noremap <F9> :ClaudeCodeSend<CR>
-  vnoremap <silent> <F9> :'<,'>ClaudeCodeSend<CR>
+  " 打开 OpenCode 选择菜单.
+  " 注意：由于不是使用opencode原版客户端，所以Select server功能不可用
+  noremap <F9> :lua require("opencode").select()<CR>
 
   noremap <C-l> :call autocmd#diagnostic_refresh()<CR>:nohl<CR><C-l>
 " }

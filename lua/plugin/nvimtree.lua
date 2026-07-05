@@ -44,6 +44,15 @@ local function my_on_attach(nr)
   vim.keymap.set('n', 'y', api.fs.copy.node, opts('[File] Copy'))
   vim.keymap.set('n', 'p', api.fs.paste, opts('[File] Paste'))
   vim.keymap.set('n', 'd', api.fs.remove, opts('[File] Delete'))
+  -- OpenCode: 发送文件路径到 opencode
+  vim.keymap.set('n', 'go', function()
+    local node = api.tree.get_node_under_cursor()
+    if node and node.absolute_path then
+      local path = vim.fn.fnamemodify(node.absolute_path, ":.")
+      -- 直接发送文件路径，无需回车确认
+      require("opencode").prompt(path .. " ")
+    end
+  end, opts('[OpenCode] Send file'))
 end
 
 function M:setup()
