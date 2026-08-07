@@ -3,7 +3,8 @@
   " 使用2字符宽度缩进的语言
   let s:shortIndentLang = [
         \ 'sh', 'zsh', 'sql', 'lua', 'json', 'yaml',
-        \ 'vue', 'html', 'javascript', 'ts', 'tsx',
+        \ 'vue', 'html', 'javascript',
+        \ 'ts', 'tsx', 'typescriptreact',
         \ 'css', 'less', 'scss', 'sass',
         \ 'go', 'python', 'vim'
         \ ]
