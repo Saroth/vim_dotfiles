@@ -12,8 +12,12 @@ function M:setup()
       --       需在外部终端执行 claude --ide 或 /ide 连接编辑器.
       provider = "none",
     },
+    diff_opts = {
+      open_in_new_tab = true,
+    },
   })
 
+  -- 键位映射配置
   -- go: 发送到 Claude (normal=当前行, visual=选区内容)
   vim.keymap.set("n", "go", function()
     vim.cmd("normal! V")

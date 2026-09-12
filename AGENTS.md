@@ -18,6 +18,19 @@ bash test/test_vi.sh     # 使用 vi 测试
 
 ## 架构
 
+### AI 编程助手集成
+
+**claudecode.nvim** (`lua/plugin/claudecode.lua`):
+- `go`: 发送当前行/选区到 Claude Code
+- `gO` (nvimtree): 发送文件到 Claude Code
+- `diff_opts.open_in_new_tab = true`: diff 视图在新 tab 打开
+- `auto_start = true`: 自动启动
+- `terminal.provider = "none"`: 通过外部终端运行 claude，需执行 `claude --ide` 或 `/ide` 连接编辑器
+
+**opencode.nvim** (`lua/plugin/opencode.lua`):
+- `gO`: 发送当前行/选区到 OpenCode
+- `go` (nvimtree): 发送文件路径到 OpenCode
+
 ### 双插件管理器
 
 - **vim-plug**（`autoload/plug.vim`，已内置）— VimScript 插件在 `config/plugin.vim` 中声明
