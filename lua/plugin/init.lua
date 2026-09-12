@@ -1,8 +1,8 @@
 local plugins = {
   'packer', -- Packer manage itself
   'nvimtree',
-  -- 'treesitter',
-  -- 'claudecode',
+  -- 'treesitter', -- 已有Coc语法高亮，不启用
+  'claudecode',
   'opencode',
   -- 'minuet', -- 依赖nvim-cmp作为补全前端, nvim-cmp与coc同时使用存在冲突
   'sshfs',

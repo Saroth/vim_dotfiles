@@ -56,20 +56,15 @@ function M:setup()
 
   vim.o.autoread = true -- Required for vim.g.opencode_opts.events.reload
 
-  -- keymap.vim: <F9> 菜单
-  -- nvimtree.lua: go 发送文件路径
-  vim.keymap.set({ "n", "x" }, "go", function()
+  -- gO: 发送到 OpenCode (normal=当前行, visual=选区)
+  vim.keymap.set({ "n", "x" }, "gO", function()
     local op = require("opencode").operator("@this ")
     if vim.fn.mode() == "n" then
-      return op .. "_"  -- normal 模式：发送当前行
+      return op .. "_"
     else
-      return op  -- visual 模式：发送选区
+      return op
     end
   end, { desc = "Send to OpenCode", expr = true })
-  -- gO: 打开交互式输入框（带上下文）
-  vim.keymap.set({ "n", "x" }, "gO", function()
-    require("opencode").ask("@this: ")
-  end, { desc = "Ask OpenCode" })
 
   -- Handle OpenCode events
   vim.api.nvim_create_autocmd("User", {
