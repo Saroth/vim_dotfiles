@@ -117,7 +117,7 @@ local rm_opts = {
       --   double ：使用双线边框字符
       --   round  ：使用圆角边框
       --   none   ：不做任何处理
-      preset = 'double',
+      preset = 'round',
       -- 决定整张表格的渲染方式：
       --   none   ：关闭所有渲染
       --   normal ：对表格的每一行应用 'cell' 样式渲染

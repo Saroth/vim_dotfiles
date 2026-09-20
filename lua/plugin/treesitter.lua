@@ -30,6 +30,7 @@ function M.setup()
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo.foldlevel = 99 -- 默认展开所有折叠
     end,
+    -- XXX: 使用 @queries/markdown/folds.scm 优化折叠效果，去除遗留空行
   })
 
   -- 确保 markdown parser 已安装, 若未就绪则异步安装后触发 render-markdown

@@ -25,17 +25,16 @@
   noremap <F3> :e $VIM/config/keymap.vim <CR>
   noremap <F4> :e $VIM/config/plugin.vim <CR>
 
-  noremap <F5> :call CocAction('diagnosticRefresh')<CR>
-  noremap <F6> :CocList<CR>
-  " 清理Java工作区
-  nnoremap <silent> <C-F7> :CocCommand java.clean.workspace<CR>
   " 重启语言服务
-  noremap <F7> :CocRestart<CR>
+  noremap <F5> :CocRestart<CR>
+  " 清理Java工作区
+  nnoremap <F6> :CocCommand java.clean.workspace<CR>
+  noremap <F7> :AerialToggle<CR>
   noremap <F8> :NvimTreeFindFileToggle<CR>
 
   " 打开 OpenCode 选择菜单.
   " 注意：由于不是使用opencode原版客户端，所以Select server功能不可用
-  noremap <F9> :lua require("opencode").select()<CR>
+  noremap <F10> :lua require("opencode").select()<CR>
 
   noremap <C-l> :call autocmd#diagnostic_refresh()<CR>:nohl<CR><C-l>
 " }
