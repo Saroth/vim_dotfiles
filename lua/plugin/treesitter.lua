@@ -1,47 +1,75 @@
 M = {}
-M.repo = {
-  'nvim-treesitter/nvim-treesitter',
-  run = ':TSUpdate',
-}
 
-function M:setup()
-  require('nvim-treesitter.configs').setup {
-    -- A list of parser names { 'c', 'lua', 'rust' }
-    ensure_installed = {
-      'c', 'cpp', 'make', 'cmake',
-      'go', 'gomod', 'java', 'kotlin', 'rust',
-      'vue', 'html', 'javascript', 'typescript', 'css', 'scss',
-      'vim', 'vimdoc', 'lua', 'python', 'sql',
-      'ini', 'toml', 'json', 'properties', 'xml', 'yaml',
-      'git_config', 'gitignore', 'dockerfile', 'ssh_config',
-      'csv', 'markdown', 'todotxt',
-    },
-    sync_install = false, -- Install parsers synchronously (only applied to `ensure_installed`)
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+function M.setup()
+  require('nvim-treesitter').setup {
+    ensure_installed = { 'markdown', 'markdown_inline' },
+    sync_install = true,
     auto_install = true,
-    ignore_install = { }, -- List of parsers to ignore installing (for 'all')
+    ignore_install = {},
     highlight = {
-      enable = false, -- 启用基于TreeSitter的代码高亮. XXX: 已有Coc的语法高亮，不启用
-      -- disable = { }, -- 禁用高亮的语言. NOTE: 此处填写解析器名, 而不是文件类型
-      disable = function(_, buf) -- 灵活控制. 不对大文件启用高亮
-        local max_filesize = 100 * 1024 -- 100 KB
+      enable = true,
+      disable = function(lang, buf)
+        if lang ~= 'markdown' and lang ~= 'markdown_inline' then
+          return true
+        end
+        local max_filesize = 100 * 1024
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
           return true
         end
       end,
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,  -- 禁用传统高亮
+      additional_vim_regex_highlighting = false,
     },
-    indent = {
-      enable = false,  -- 启用基于TreeSitter的代码格式化。使用原生方式(=)触发格式化
-    },
+    indent = { enable = false },
   }
+  -- Markdown 折叠: 基于 treesitter 按标题层级折叠
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'markdown',
+    callback = function()
+      vim.wo.foldmethod = 'expr'
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo.foldlevel = 99 -- 默认展开所有折叠
+    end,
+  })
+
+  -- 确保 markdown parser 已安装, 若未就绪则异步安装后触发 render-markdown
+  vim.api.nvim_create_autocmd('VimEnter', {
+    once = true,
+    callback = function()
+      local function try_trigger_markdown()
+        if pcall(vim.treesitter.language.inspect, 'markdown') then
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.bo[buf].filetype == 'markdown' and vim.api.nvim_buf_is_loaded(buf) then
+              vim.api.nvim_exec_autocmds('FileType', { pattern = 'markdown', modeline = false })
+              break
+            end
+          end
+          return true
+        end
+        return false
+      end
+      if not try_trigger_markdown() then
+        vim.cmd('TSInstall markdown markdown_inline')
+        local timer = vim.uv.new_timer()
+        timer:start(500, 500, vim.schedule_wrap(function()
+          if try_trigger_markdown() then
+            timer:stop()
+            timer:close()
+          end
+        end))
+      end
+    end,
+  })
 end
 
-return M
+local setup = M.setup
 
+M.spec = {
+  'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdateSync',
+  lazy = false,
+  priority = 1000,
+  config = setup,
+}
+
+return M

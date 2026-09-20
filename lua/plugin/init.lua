@@ -1,27 +1,44 @@
+-- -- 代理配置: treesitter 下载 parser 源码需要
+-- vim.env.HTTPS_PROXY = vim.env.HTTPS_PROXY or 'http://winhost:10808'
+-- vim.env.HTTP_PROXY = vim.env.HTTP_PROXY or 'http://winhost:10808'
+
 local plugins = {
-  'packer', -- Packer manage itself
+  'lazy', -- lazy.nvim 自身引导
   'nvimtree',
-  -- 'treesitter', -- 已有Coc语法高亮，不启用
+  'treesitter',
+  'markdown',
+  'render-markdown',
+  'peek',
+  'plantuml',
   'claudecode',
   'opencode',
   -- 'minuet', -- 依赖nvim-cmp作为补全前端, nvim-cmp与coc同时使用存在冲突
   'sshfs',
 }
 
+-- Phase 1: 加载模块并执行 init()
 local modules = {}
 for i = 1, #plugins do
-  modules[i] = require('plugin/'..plugins[i])
+  modules[i] = require('plugin/' .. plugins[i])
   if modules[i].init then modules[i]:init() end
 end
-require('packer').startup(function(use)
-  for i = 1, #modules do
-    if modules[i].repo then use(modules[i].repo) end
-  end
-  for i = 1, #modules do
-    if modules[i].postload then modules[i]:postload() end
-  end
-end)
-for i = 1, #modules do
-  if modules[i].setup then modules[i]:setup() end
-end
 
+-- Phase 2: 收集所有插件 spec
+local specs = {}
+for i = 1, #modules do
+  if modules[i].spec then
+    specs[#specs + 1] = modules[i].spec
+  end
+end
+modules[1]:set_specs(specs) -- lazy.lua
+
+-- Phase 3: 统一调用各插件的 setup()
+-- 懒加载插件由 lazy.nvim 的 spec.config 延迟调用, 此处跳过
+for i = 1, #modules do
+  if modules[i].setup then
+    local spec = modules[i].spec
+    if not spec or not spec.ft then
+      modules[i]:setup()
+    end
+  end
+end

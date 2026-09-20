@@ -201,13 +201,6 @@ call plug#begin($VIM.'/plugged')
   let g:AutoPairsShortcutToggle = '<leader>tp'
 " }
 " Formatter:
-" { vim-markdown    Markdowm语法支持. 功能: 段落折叠, 文本格式
-  Plug 'plasticboy/vim-markdown'
-  let g:vim_markdown_folding_disabled=0 " 禁用折叠
-  let g:vim_markdown_folding_style_pythonic = 1 " 类似python-mode的折叠样式
-  let g:vim_markdown_override_foldtext = 0 " 不设置折叠文本
-  let g:vim_markdown_math=1 " 使用数学符号
-" }
 " { kotlin-vim      Kotlin的语法支持.
   Plug 'udalov/kotlin-vim'
 " }
