@@ -4,37 +4,47 @@ NeoVim配置
 # About
 ## 适用环境
 *   Platform: `Linux`
-*   `Vim`: `>5.0`
-*   `NeoVim`: `>0.8.0`
+*   `NeoVim`: `>=0.9.0`
 
 ## 安装目录
 *   `Linux`: ~/.config/nvim
 
-# Install
-## 系统软件:
-```shell
-## coc-vimlsp依赖
-$ sudo npm install -g eslint
+# 插件管理器
+使用 [lazy.nvim](https://github.com/folke/lazy.nvim) 管理插件，首次启动自动安装。
 
-## coc-ccls依赖
+# 已安装插件
+| 插件 | 用途 |
+|------|------|
+| nvim-tree.lua | 文件浏览器 |
+| nvim-treesitter | 语法高亮 |
+| markdown-preview.nvim | Markdown 预览 |
+| render-markdown.nvim | Markdown 渲染 |
+| aerial.nvim | 代码大纲 |
+| claudecode.nvim | Claude Code 集成 |
+| opencode.nvim | OpenCode 集成 |
+| sshfs.nvim | SSH 远程文件系统 |
+| coc.nvim | LSP 补全引擎 |
+| autopairs | 括号自动配对 |
+
+# Install
+## 系统依赖:
+```shell
+# coc.nvim 依赖
+$ sudo npm install -g neovim eslint
+
+# C/C++ LSP
 $ sudo dnf install ccls
 
-## coc-go依赖
-$ sudo dnf install gotags golang-x-tools-gopls
+# Go LSP
+$ sudo dnf install golang-x-tools-gopls
 
-## coc-pyright
+# Python LSP
 $ sudo pip3 install pylint jedi
-
-## LeaderF
-$ sudo pip3 install pynvim
 ```
 
-## Vim插件
+## 插件安装
+启动 NeoVim 后执行:
 ```vimscript
-" plug.vim插件管理器批量安装
-:PlugInstall
-
-" packer插件管理器批量安装
-:PackerInstall
+:Lazy install
 ```
 

@@ -4,16 +4,14 @@
 
 ## 项目概览
 
-Vim/NeoVim 配置文件仓库。安装目录：`~/.config/nvim`。平台：Linux。最低版本要求：Vim > 5.0，NeoVim > 0.8.0。
+NeoVim 配置文件仓库。安装目录：`~/.config/nvim`。平台：Linux。最低版本要求：NeoVim >= 0.9.0。
 
 ## 测试配置
 
-`test/` 目录下的测试脚本使用临时 vimrc 启动 vim/vi/nvim（无需安装到 `~/.config/nvim`）：
+`test/` 目录下的测试脚本使用临时 vimrc 启动 neovim（无需安装到 `~/.config/nvim`）：
 
 ```bash
 bash test/test_nvim.sh   # 使用 neovim 测试
-bash test/test_vim.sh    # 使用 vim 测试
-bash test/test_vi.sh     # 使用 vi 测试
 ```
 
 ## 架构
@@ -31,16 +29,18 @@ bash test/test_vi.sh     # 使用 vi 测试
 - `gO`: 发送当前行/选区到 OpenCode
 - `go` (nvimtree): 发送文件路径到 OpenCode
 
-### 双插件管理器
+### 插件管理器
 
-- **vim-plug**（`autoload/plug.vim`，已内置）— VimScript 插件在 `config/plugin.vim` 中声明
-- **packer.nvim**（自动引导安装）— Lua 插件位于 `lua/plugin/`
+**lazy.nvim**（自动引导安装）— 所有插件通过 `lua/plugin/*.lua` 模块声明，由 `lua/plugin/init.lua` 统一编排。
 
 ### 配置层级
 
-**VimScript 层**（Vim + NeoVim 通用）：`init.vim` 按顺序加载 `config/basic.vim` → `config/keymap.vim` → `config/autocmd.vim` → `config/plugin.vim`。
+**VimScript 层**（基础配置）：`init.vim` 按顺序加载 `config/basic.vim` → `config/keymap.vim` → `config/autocmd.vim`。
 
-**Lua 层**（仅 NeoVim）：`lua/init.lua` → `lua/plugin/init.lua` 编排 packer。每个 Lua 插件模块（`lua/plugin/*.lua`）导出表 `M`，包含可选的生命周期方法：`repo`、`init()`、`postload()`、`setup()`。
+**Lua 层**（插件配置）：`lua/init.lua` → `lua/plugin/init.lua` 编排 lazy.nvim。每个 Lua 插件模块（`lua/plugin/*.lua`）导出表 `M`，包含：
+- `spec`: lazy.nvim 插件规范（必需）
+- `init()`: 初始化函数（可选，在 lazy.nvim 加载前执行）
+- `setup()`: 配置函数（可选，在插件加载后执行）
 
 ### 自定义主题系统
 
@@ -48,13 +48,11 @@ bash test/test_vi.sh     # 使用 vi 测试
 
 ### LSP：coc.nvim
 
-所有 coc.nvim 集成（扩展、快捷键、配置）位于 `config/plugin.vim`。LSP 服务器设置位于 `config/coc-settings.json`。诊断在保存时运行（非实时）。支持的服务器：Go (gopls)、Java、Lua、XML。
+所有 coc.nvim 集成（扩展、快捷键、配置）位于 `lua/plugin/coc.lua`。LSP 服务器设置位于 `config/coc-settings.json`。诊断在保存时运行（非实时）。支持的服务器：Go (gopls)、Java、Lua、XML。
 
 ## 添加新插件
 
-**VimScript 插件**：在 `config/plugin.vim` 的 `plug#begin()` 和 `plug#end()` 之间添加 `Plug 'repo/name'`，配置写在下方。
-
-**Lua 插件**：创建 `lua/plugin/newplugin.lua`，导出表 `M`，包含 `repo`（GitHub 路径）以及可选的 `init()`、`postload()`、`setup()`。将模块名添加到 `lua/plugin/init.lua` 的模块列表中。
+创建 `lua/plugin/newplugin.lua`，导出表 `M`，包含 `spec`（lazy.nvim 规范）以及可选的 `init()`、`setup()`。将模块名添加到 `lua/plugin/init.lua` 的 `plugins` 列表中。
 
 ## 代码风格
 
