@@ -118,18 +118,6 @@ call plug#begin($VIM.'/plugged')
   map gn <Plug>(GitGutterNextHunk)
   map gp <Plug>(GitGutterPrevHunk)
 " }
-" { indent-guides   缩进指示条. Enable/Disable: <leader>ig
-  Plug 'preservim/vim-indent-guides'
-  let g:indent_guides_enable_on_vim_startup = 1   " 自启动
-  let g:indent_guides_auto_colors = 1 " 自动配色
-  let g:indent_guides_color_change_percent = 4    " 缩进颜色改变比例
-  let g:indent_guides_guide_size = 1  " 缩进指示条宽度
-  let g:indent_guides_start_level = 2 " 显示起始列
-  let g:indent_guides_exclude_buftype = 1   " 在非文件缓冲区禁用
-  " 不显示的文件类型
-  let g:indent_guides_exclude_filetypes = ['help', 'NvimTree', 'dashboard', 'startify']
-  let g:indent_guides_exclude_buftypes = ['terminal', 'nofile']
-" }
 " { rainbow         括号高亮匹配
   Plug 'luochen1990/rainbow'
   let g:rainbow_active = 1
@@ -155,28 +143,6 @@ call plug#begin($VIM.'/plugged')
 " }
 " { xterm-color-table       终端颜色表. :XtermColorTable
   Plug 'guns/xterm-color-table.vim'
-" }
-" { markdown-preview.nvim   Markdown实时预览, invoked by :MarkdownPreview
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-  let g:mkdp_auto_start = 0 " 1: 打开markdown文件buffer时自动打开预览
-  let g:mkdp_auto_close = 1 " 1: 关闭buffer时自动关闭预览
-  let g:mkdp_refresh_slow = 1 " 1: 仅保存或退出编辑模式时刷新预览
-  let g:mkdp_browser = '' " 预览使用的浏览器
-  let g:mkdp_echo_preview_url = 1 " 显示预览地址
-  let g:mkdp_port = '' " 自定义端口, 使用固定端口会导致无法多开
-  let g:mkdp_open_to_the_world = 1 " 局域网内可访问
-  " let g:mkdp_theme = 'light' 默认主题
-  " 样式配置
-  " let g:mkdp_markdown_css = $VIM.'/vimfiles/tools/css/markdown.css'
-  " let g:mkdp_highlight_css = $VIM.'/vimfiles/tools/css/highlight.css'
-  " 转换选项.
-  " uml.imageFormat: 默认为img, 生成png图片, png中文字体模糊, 改用svg图片
-  let g:mkdp_preview_options = {
-        \ 'uml': {
-        \ 'server': 'http://47.93.4.73:51801',
-        \ 'imageFormat': 'svg',
-        \ },
-        \ }
 " }
 
 " All of your Plugs must be added before the following line

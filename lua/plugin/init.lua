@@ -16,6 +16,8 @@ local plugins = {
   'autopairs',
   'rainbow-delimiters',
   'highlight-colors',
+  'markdown-preview',
+  'indent-blankline',
 }
 
 -- Phase 1: 加载模块并执行 init()
