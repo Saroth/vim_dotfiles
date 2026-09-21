@@ -18,7 +18,7 @@ local extensions = {
   'coc-snippets',
   'coc-db', -- 基于数据库的sql补全插件, 基于vim-dadbod
   'coc-vue',
-  'coc-highlight',
+  -- 'coc-highlight', -- 已禁用: 使用 treesitter 高亮
 }
 
 function M.init()
@@ -99,14 +99,14 @@ function M.setup()
     end
   end, { silent = true })
 
-  -- 光标停留时高亮符号
-  vim.api.nvim_create_autocmd('CursorHold', {
-    callback = function()
-      if vim.fn.exists('*CocActionAsync') == 1 then
-        vim.fn.CocActionAsync('highlight')
-      end
-    end,
-  })
+  -- 光标停留时高亮符号 (已禁用: 使用 treesitter 高亮)
+  -- vim.api.nvim_create_autocmd('CursorHold', {
+  --   callback = function()
+  --     if vim.fn.exists('*CocActionAsync') == 1 then
+  --       vim.fn.CocActionAsync('highlight')
+  --     end
+  --   end,
+  -- })
 
   -- 符号重命名
   vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)', { silent = true })
