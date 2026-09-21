@@ -14,6 +14,8 @@ local plugins = {
   'sshfs',
   'coc',
   'autopairs',
+  'rainbow-delimiters',
+  'highlight-colors',
 }
 
 -- Phase 1: 加载模块并执行 init()
