@@ -1,15 +1,17 @@
 M = {}
 
+local opts = {
+  auto_start = true,
+  terminal = {
+    provider = "none",
+  },
+  diff_opts = {
+    open_in_new_tab = true,
+  },
+}
+
 function M.setup()
-  require("claudecode").setup({
-    auto_start = true,
-    terminal = {
-      provider = "none",
-    },
-    diff_opts = {
-      open_in_new_tab = true,
-    },
-  })
+  require("claudecode").setup(opts)
 
   -- 键位映射配置
   vim.keymap.set("n", "go", function()
@@ -29,12 +31,10 @@ function M.setup()
   })
 end
 
-local setup = M.setup
-
 M.spec = {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  config = setup,
+  config = M.setup,
 }
 
 return M

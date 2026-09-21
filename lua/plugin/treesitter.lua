@@ -1,27 +1,29 @@
 M = {}
 
+local opts = {
+  ensure_installed = { 'markdown', 'markdown_inline' },
+  sync_install = true,
+  auto_install = true,
+  ignore_install = {},
+  highlight = {
+    enable = true,
+    disable = function(lang, buf)
+      if lang ~= 'markdown' and lang ~= 'markdown_inline' then
+        return true
+      end
+      local max_filesize = 100 * 1024
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+    end,
+    additional_vim_regex_highlighting = false,
+  },
+  indent = { enable = false },
+}
+
 function M.setup()
-  require('nvim-treesitter').setup {
-    ensure_installed = { 'markdown', 'markdown_inline' },
-    sync_install = true,
-    auto_install = true,
-    ignore_install = {},
-    highlight = {
-      enable = true,
-      disable = function(lang, buf)
-        if lang ~= 'markdown' and lang ~= 'markdown_inline' then
-          return true
-        end
-        local max_filesize = 100 * 1024
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-          return true
-        end
-      end,
-      additional_vim_regex_highlighting = false,
-    },
-    indent = { enable = false },
-  }
+  require('nvim-treesitter').setup(opts)
   -- Markdown 折叠: 基于 treesitter 按标题层级折叠
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'markdown',
@@ -63,14 +65,12 @@ function M.setup()
   })
 end
 
-local setup = M.setup
-
 M.spec = {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdateSync',
   lazy = false,
   priority = 1000,
-  config = setup,
+  config = M.setup,
 }
 
 return M

@@ -72,8 +72,6 @@ function M.setup()
   })
 end
 
-local setup = M.setup
-
 M.spec = {
   "nickjvandyke/opencode.nvim",
   version = "*",
@@ -81,7 +79,7 @@ M.spec = {
     "nvim-lua/plenary.nvim",
     "folke/snacks.nvim",
   },
-  config = setup,
+  config = M.setup,
 }
 
 return M

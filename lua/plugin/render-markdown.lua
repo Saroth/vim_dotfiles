@@ -1,6 +1,6 @@
 M = {}
 
-local rm_opts = {
+local opts = {
   sign = { enabled = false }, -- 关闭Sign列标记, Consolas字体无对应图标
   heading = { -- 标题
     atx = true, -- 开启 / 关闭 atx 风格标题的渲染（即 `#` ~ `######`）
@@ -129,23 +129,21 @@ local rm_opts = {
 
 function M.setup()
   if pcall(vim.treesitter.language.inspect, 'markdown') then
-    require('render-markdown').setup(rm_opts)
+    require('render-markdown').setup(opts)
   else
     -- parser 尚未就绪, 延迟到 VimEnter 后执行
     vim.api.nvim_create_autocmd('VimEnter', {
       once = true,
-      callback = function() require('render-markdown').setup(rm_opts) end,
+      callback = function() require('render-markdown').setup(opts) end,
     })
   end
 end
-
-local setup = M.setup
 
 M.spec = {
   'MeanderingProgrammer/render-markdown.nvim',
   dependencies = { 'nvim-treesitter/nvim-treesitter' },
   ft = 'markdown',
-  config = setup,
+  config = M.setup,
 }
 
 return M

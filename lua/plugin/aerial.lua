@@ -1,6 +1,6 @@
 M = {}
 
-local aerial_opts = {
+local opts = {
   backends = { 'treesitter' },
   filter_kind = false,
   layout = {
@@ -13,26 +13,25 @@ local aerial_opts = {
 }
 
 function M.setup()
-  require('aerial').setup(aerial_opts)
+  require('aerial').setup(opts)
+
   -- 进入和退出 Aerial 窗口时自动调整宽度
   local aerial_augroup = vim.api.nvim_create_augroup('aerial settings', { clear = true })
   vim.api.nvim_create_autocmd({ 'BufEnter', 'BufLeave' }, {
     group = aerial_augroup,
     callback = function()
       if vim.bo.filetype == 'aerial' then
-        vim.api.nvim_win_set_width(0, aerial_opts.layout.max_width)
+        vim.api.nvim_win_set_width(0, opts.layout.max_width)
       end
     end,
   })
 end
 
-local setup = M.setup
-
 M.spec = {
   'stevearc/aerial.nvim',
   branch = 'nvim-0.11',
   dependencies = { 'nvim-treesitter/nvim-treesitter' },
-  config = setup,
+  config = M.setup,
 }
 
 return M

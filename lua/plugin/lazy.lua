@@ -15,7 +15,7 @@ function M:init()
 end
 
 -- lazy.nvim 配置选项
-M.opts = {
+local opts = {
   install = { colorscheme = { 'habamax' } },
   checker = { enabled = false }, -- 不自动检查更新
   change_detection = { enabled = false }, -- 不自动检测配置变更
@@ -34,7 +34,7 @@ end
 
 -- 启动 lazy.nvim
 function M:setup()
-  require('lazy').setup(self.specs, self.opts)
+  require('lazy').setup(self.specs, opts)
 end
 
 return M
