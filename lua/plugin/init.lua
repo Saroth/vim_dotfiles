@@ -12,6 +12,8 @@ local plugins = {
   'claudecode',
   'opencode',
   'sshfs',
+  'coc',
+  'autopairs',
 }
 
 -- Phase 1: 加载模块并执行 init()

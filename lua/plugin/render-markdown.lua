@@ -12,12 +12,9 @@ local opts = {
     --   full ：窗口的完整宽度
     -- 也可以是一个上述取值的数组，此时 level 会以 clamp 方式作为数组索引
     width = 'block',
-    -- width 为 'block' 时，标题右侧填充的空格数
-    right_pad = 4,
-    -- width 为 'block' 时，标题使用的最小宽度
-    min_width = 80,
-    -- 是否在标题的上下方添加边框
-    border = true,
+    right_pad = 4, -- width 为 'block' 时，标题右侧填充的空格数
+    min_width = 79, -- width 为 'block' 时，标题使用的最小宽度
+    border = true, -- 是否在标题的上下方添加边框
   },
   code = { -- 代码块
     -- 决定代码块与行内代码的渲染程度：
@@ -32,26 +29,22 @@ local opts = {
     --   left  ：代码块的左侧
     --   center：代码块水平居中
     position = 'right',
-    -- 是否显示语言图标
-    language_icon = false,
-    -- 语言标识两侧的留白大小
-    language_pad = 2,
+    language_icon = false, -- 是否显示语言图标
+    language_pad = 2, -- 语言标识两侧的留白大小
     -- 一个语言名称数组：这些语言会禁用背景高亮，
     -- 通常是因为它们自身就带有背景高亮（如 diff）
     disable_background = { 'diff' },
+
     -- 代码块背景的宽度：
     --   block ：代码块文字的宽度
     --   full  ：窗口的完整宽度
     --   也可以是上述取值的数组，此时按级别以 clamp 方式索引
     width = 'block',
-    -- 代码块左侧的额外缩进量
-    left_margin = 1,
-    -- 代码块左侧填充的空格数
-    left_pad = 1,
-    -- width 为 'block' 时，代码块右侧填充的空格数
-    right_pad = 4,
-    -- width 为 'block' 时，代码块使用的最小宽度
-    min_width = 40,
+    left_margin = 0, -- 代码块左侧的额外缩进量
+    left_pad = 0, -- 代码块左侧填充的空格数
+    right_pad = 4, -- width 为 'block' 时，代码块右侧填充的空格数
+    min_width = 40, -- width 为 'block' 时，代码块使用的最小宽度
+
     -- 代码块顶部 / 底部边框的渲染方式：
     --   thick ：使用与代码主体相同的高亮
     --   thin  ：空行处叠加 above / below 图标
@@ -109,21 +102,32 @@ local opts = {
         scope_highlight = 'MoreMsg',
       },
     },
-    quote = { -- 引用块
-    },
-    pipe_table = { -- 表格
-      -- 预置的边框方案，主要用于省去手动设置 border 的麻烦：
-      --   heavy  ：使用更粗的边框字符
-      --   double ：使用双线边框字符
-      --   round  ：使用圆角边框
-      --   none   ：不做任何处理
-      preset = 'round',
-      -- 决定整张表格的渲染方式：
-      --   none   ：关闭所有渲染
-      --   normal ：对表格的每一行应用 'cell' 样式渲染
-      --   full   ：normal + 在长度匹配时补齐上下边框线
-      style = 'full',
-    },
+  },
+  quote = { -- 引用块
+  },
+  link = { -- 链接
+    enabled = false, -- 不显示图标
+  },
+  latex = { -- LaTeX 公式
+    converter = { 'latex2text' }, -- pylatexenc 提供
+    inline = true,   -- 渲染行内公式 $...$
+    block = true,    -- 渲染块级公式 $$...$$
+    position = 'above', -- 公式显示位置：above / below / center
+    top_pad = 0,
+    bottom_pad = 0,
+  },
+  pipe_table = { -- 表格
+    -- 预置的边框方案，主要用于省去手动设置 border 的麻烦：
+    --   heavy  ：使用更粗的边框字符
+    --   double ：使用双线边框字符
+    --   round  ：使用圆角边框
+    --   none   ：不做任何处理
+    preset = 'none',
+    -- 决定整张表格的渲染方式：
+    --   none   ：关闭所有渲染
+    --   normal ：对表格的每一行应用 'cell' 样式渲染
+    --   full   ：normal + 在长度匹配时补齐上下边框线
+    style = 'full',
   },
 }
 
