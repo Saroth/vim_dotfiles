@@ -21,6 +21,8 @@ local plugins = {
   'gitsigns',
   'markdown-table-mode',
   'fzf-lua',
+  'comment',
+  'color-palette',
 }
 
 -- Phase 1: 加载模块并执行 init()
