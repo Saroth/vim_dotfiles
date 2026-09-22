@@ -19,6 +19,7 @@ local plugins = {
   'markdown-preview',
   'indent-blankline',
   'gitsigns',
+  'markdown-table-mode',
 }
 
 -- Phase 1: 加载模块并执行 init()

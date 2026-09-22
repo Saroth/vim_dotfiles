@@ -36,14 +36,6 @@ call plug#begin($VIM.'/plugged')
 " { vim-easy-align  代码对齐. selected and type :EasyAlign
   Plug 'junegunn/vim-easy-align'
 " }
-" { vim-table-mode  表格插件, Enable: <leader>tm
-"                                 Insert Column: <leader>tic
-"                                 Delete Row: <leader>tdc
-"                                 Delete Row: <leader>tdd
-  Plug 'dhruvasagar/vim-table-mode'
-  let g:table_mode_corner = '|' " 兼容Markdown的制表分隔符
-  let g:table_mode_syntax = 0 " XXX: 影响编辑速度, 关闭表格高亮
-" }
 " { nerdcommenter   快捷注释 invoke by <leader>cc, ...
   Plug 'scrooloose/nerdcommenter'
   let g:NERDSpaceDelims = 1 " 在左注释符之后, 右注释符之前插入空格
