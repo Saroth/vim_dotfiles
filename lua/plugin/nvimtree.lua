@@ -113,7 +113,7 @@ function M.setup()
   vim.g.loaded_netrwPlugin = 1
   require('nvim-tree').setup(opts)
   vim.keymap.set('n', '<leader>fc', '<cmd>NvimTreeFindFile<CR>')
-  -- NvimTree相关自动命令
+  -- NvimTree窗口设置固定宽度
   local nvim_tree_augroup = vim.api.nvim_create_augroup('nvim-tree settings', { clear = true })
   vim.api.nvim_create_autocmd({ 'BufEnter', 'BufLeave' }, {
     group = nvim_tree_augroup,

@@ -5,9 +5,6 @@ call plug#begin($VIM.'/plugged')
 
 " Manager:
 " coc.nvim 已迁移到 lua/plugin/coc.lua
-" { fugitive        Git管理. Invoke most by :Git *** :Gdiff :Gstatus ...
-  Plug 'tpope/vim-fugitive'
-" }
 " { dadbod.vim      数据库交互插件/UI. invoke by :DBUI
   Plug 'tpope/vim-dadbod'
   Plug 'kristijanhusak/vim-dadbod-ui'
@@ -105,19 +102,6 @@ call plug#begin($VIM.'/plugged')
   map F <Plug>Sneak_S
 " }
 " Decorate:
-" { gitgutter       显示git修改标记
-  Plug 'airblade/vim-gitgutter'
-  " 标记符号
-  let g:gitgutter_sign_modified = '!'
-  let g:gitgutter_sign_modified_removed = '!_'
-  " Sign colors:
-  call theme#hl("GitGutterAdd", g:theme_green, g:theme_darkgray4)
-  call theme#hl("GitGutterChange", g:theme_gold, g:theme_darkgray4)
-  call theme#hl("GitGutterDelete", g:theme_darkred0, g:theme_darkgray4)
-  " Mappings
-  map gn <Plug>(GitGutterNextHunk)
-  map gp <Plug>(GitGutterPrevHunk)
-" }
 " { rainbow         括号高亮匹配
   Plug 'luochen1990/rainbow'
   let g:rainbow_active = 1

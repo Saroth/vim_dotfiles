@@ -18,6 +18,7 @@ local plugins = {
   'highlight-colors',
   'markdown-preview',
   'indent-blankline',
+  'gitsigns',
 }
 
 -- Phase 1: 加载模块并执行 init()
