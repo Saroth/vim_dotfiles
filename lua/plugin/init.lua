@@ -20,6 +20,7 @@ local plugins = {
   'indent-blankline',
   'gitsigns',
   'markdown-table-mode',
+  'fzf-lua',
 }
 
 -- Phase 1: 加载模块并执行 init()
