@@ -23,7 +23,7 @@
 " { Function key
   noremap <F2> :e $VIM/config/basic.vim <CR>
   noremap <F3> :e $VIM/config/keymap.vim <CR>
-  noremap <F4> :e $VIM/config/plugin.vim <CR>
+  noremap <F4> :e $VIM/lua/plugin/init.lua <CR>
 
   " 重启语言服务
   noremap <F5> :CocRestart<CR>

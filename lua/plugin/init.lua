@@ -23,6 +23,8 @@ local plugins = {
   'fzf-lua',
   'comment',
   'color-palette',
+  'visincr',
+  'mini-align',
 }
 
 -- Phase 1: 加载模块并执行 init()

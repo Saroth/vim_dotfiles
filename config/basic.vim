@@ -97,21 +97,4 @@
   "   l:  编辑长度超出textwidth的注释，不自动换行
   set formatoptions=jcrql
 " }
-" { Completion. Based on Ctag. Deprecated.
-  " " 设置自动补全提示内容的获取范围
-  " " i:    搜索包含, include文件较多时速度极慢. 使用<c-x><c-i>搜索include
-  " " t:    搜索tags，tags文件较大时速度较慢. 使用<c-x><c-]>搜索tags
-  " set complete=.,w,b,u,U,k,s
-  " " 设置补全选项
-  " "       menuone:  总是弹出补全项菜单
-  " "       longest:  使用最常用的候选项
-  " "       preview:  弹出补全项的详细信息窗口
-  " set completeopt=menuone,longest
-  " " 设置补全信息预览窗口高度
-  " set previewheight=9
-  " " 锁定补全信息预览窗口高度
-  " " set winfixheight
-  " " show tag with function protype.
-  " set showfulltag
-" }
 

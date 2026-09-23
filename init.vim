@@ -8,7 +8,6 @@ for $i in [
       \ 'basic',
       \ 'keymap',
       \ 'autocmd',
-      \ 'plugin',
       \ ]
   source $VIM/config/$i.vim
 endfor
