@@ -15,6 +15,7 @@ local opts = {
     remove_blankline_trail = false,
   },
   scope = { enabled = false },
+  exclude = { filetypes = { "markdown" } },
 }
 
 function M.setup()

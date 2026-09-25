@@ -8,7 +8,7 @@ local opts = {
     max_width = 32,
   },
   highlight_on_jump = 800,
-  nerd_font = false,
+  nerd_font = true,
   show_guides = true, -- 用制表符/画线字符显示树的层级结构
 }
 

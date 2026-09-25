@@ -1,7 +1,7 @@
 M = {}
 
 local opts = {
-  sign = { enabled = false }, -- 关闭Sign列标记, Consolas字体无对应图标
+  sign = { enabled = false }, -- 关闭Sign列标记
   heading = { -- 标题
     atx = true, -- 开启 / 关闭 atx 风格标题的渲染（即 `#` ~ `######`）
     setext = true, -- 开启 / 关闭 setext 风格标题的渲染（即下划线形式 `--` 与 `==`）
@@ -29,7 +29,7 @@ local opts = {
     --   left  ：代码块的左侧
     --   center：代码块水平居中
     position = 'right',
-    language_icon = false, -- 是否显示语言图标
+    language_icon = true, -- 是否显示语言图标
     language_pad = 2, -- 语言标识两侧的留白大小
     -- 一个语言名称数组：这些语言会禁用背景高亮，
     -- 通常是因为它们自身就带有背景高亮（如 diff）
@@ -61,13 +61,13 @@ local opts = {
     -- 列表嵌套的深度决定「级别（level）」
     -- level 会以 cycle 方式作为数组索引
     -- 取值类型：function 时写作 `value(context)`；string[] 时写作 `cycle(value, context.level)`
-    icons = { '●', '○', '◆', '◇' },
+    -- icons = { '●', '○', '◆', '◇' },
   },
   checkbox = { -- 复选框
     -- 复选框左侧添加的填充量
     left_pad = 1,
     checked = { -- 已勾选
-      icon = '[x]',
+      icon = '[√]',
       highlight = 'RenderMarkdownChecked',
       scope_highlight = '@markup.strikethrough',
     },
@@ -78,20 +78,20 @@ local opts = {
     },
     custom = {
       todo = {
-        raw = '[-]',
-        rendered = '[-]',
+        raw = '[>]',
+        rendered = '[>]',
         highlight = 'RenderMarkdownTodo',
         scope_highlight = 'Todo',
       },
       important = {
-        raw = '[~]',
-        rendered = '[~]',
+        raw = '[!]',
+        rendered = '[!]',
         highlight = 'RenderMarkdownTodo',
         scope_highlight = 'WarningMsg',
       },
       blocked = {
-        raw = '[!]',
-        rendered = '[!]',
+        raw = '[-]',
+        rendered = '[-]',
         highlight = 'RenderMarkdownTodo',
         scope_highlight = 'ErrorMsg',
       },
@@ -106,7 +106,7 @@ local opts = {
   quote = { -- 引用块
   },
   link = { -- 链接
-    enabled = false, -- 不显示图标
+    enabled = true, -- 图标
   },
   latex = { -- LaTeX 公式
     converter = { 'latex2text' }, -- pylatexenc 提供
