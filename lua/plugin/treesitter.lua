@@ -29,6 +29,11 @@ local opts = {
 }
 
 function M.setup()
+  -- lockfile 里的 sql revision 过旧, 缺 create_policy 等节点,
+  -- 导致 aerial.scm 报 Invalid node type; 锁定到 gh-pages 最新提交
+  local sql = require('nvim-treesitter.parsers').list.sql
+  sql.install_info.revision = '39fdb006403747241244326e8af3b3e96b85381c'
+
   require('nvim-treesitter').setup(opts)
 
   -- v0.10.0 移除了旧模块系统, 需手动启动 treesitter 高亮
