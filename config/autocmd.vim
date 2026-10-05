@@ -23,9 +23,12 @@ function s:set_indent()
     setlocal noexpandtab
   endif
   " foldmethod 是窗口级选项, 离开对应文件类型后需复位
-  setlocal foldmethod=marker
-  if count(s:foldByIndentLang, l:t) > 0
-    setlocal foldmethod=indent
+  " diff 模式由 :diffthis 设为 diff, 切换窗口触发 BufEnter 时不得覆盖
+  if !&diff
+    setlocal foldmethod=marker
+    if count(s:foldByIndentLang, l:t) > 0
+      setlocal foldmethod=indent
+    endif
   endif
 endfunction
 
