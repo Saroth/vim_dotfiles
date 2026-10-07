@@ -22,6 +22,7 @@ local plugins = {
   'markdown-table-mode',
   'fzf-lua',
   'comment',
+  'todo-comments',
   'color-palette',
   'visincr',
   'mini-align',
