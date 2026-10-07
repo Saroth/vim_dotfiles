@@ -9,6 +9,13 @@ local opts = {
   },
   grep = {
     file_icons = false,
+    -- 半页翻页, 避免误触默认的 git hunks 动作(会直接退出 fzf);
+    -- ctrl-u 保留默认的 unix-line-discard, ctrl-f/b 默认已有翻页
+    keymap = {
+      fzf = {
+        ['ctrl-d'] = 'half-page-down',
+      },
+    },
   },
 }
 
