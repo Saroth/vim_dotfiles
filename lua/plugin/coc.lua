@@ -91,8 +91,11 @@ function M.setup()
   vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
 
   -- 显示文档
+  -- hasProvider 返回 JSON boolean, Lua 中 true == 1 恒为 false, 不能用 == 1 判断;
+  -- coc 未就绪时会抛错, pcall 后回退默认 K
   vim.keymap.set('n', 'K', function()
-    if vim.fn.CocAction('hasProvider', 'hover') == 1 then
+    local ok, has = pcall(vim.fn.CocHasProvider, 'hover')
+    if ok and (has == true or has == 1) then
       vim.fn.CocActionAsync('doHover')
     else
       vim.fn.feedkeys('K', 'in')
