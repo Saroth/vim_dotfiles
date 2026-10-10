@@ -45,11 +45,16 @@ function M.setup()
       end
     end,
   })
+  -- 兜底: `:b` 切到 markdown 进入未跑过本 autocmd 的窗口时, foldexpr 可能为 0
+  -- 非 expr 折叠模式下该值不生效, 无副作用
+  vim.go.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
   -- Markdown 折叠: 基于 treesitter 按标题层级折叠
   -- XXX: 使用 @queries/markdown/folds.scm 优化折叠效果，去除遗留空行
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'markdown',
     callback = function()
+      vim.b.foldw = 'expr' -- 登记 foldmethod 意图, autocmd.vim 按此复位
       vim.wo.foldmethod = 'expr'
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo.foldlevel = 99 -- 默认展开所有折叠

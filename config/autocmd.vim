@@ -12,6 +12,16 @@ let s:shortIndentLang = [
 let s:tabIndentLang = ['go', 'python']
 " 基于缩进折叠的语言
 let s:foldByIndentLang = ['python']
+" FileType 时登记本 buffer 的 foldmethod 意图: marker 默认, 例外见 s:foldByIndentLang
+" 外部归属方(如 treesitter/markdown)在自己的 FileType 里覆盖登记值即可
+function s:set_fold_wanted()
+  let b:foldw = count(s:foldByIndentLang, &filetype) > 0 ? 'indent' : 'marker'
+endfunction
+" 按登记复位 foldmethod(窗口级). 未登记(无 ft)、diff、外部登记值 一律不碰
+function s:set_fold()
+  if &diff || !exists('b:foldw') | return | endif
+  if &l:foldmethod !=# b:foldw | let &l:foldmethod = b:foldw | endif
+endfunction
 function s:set_indent()
   let l:t = &filetype
   if count(s:shortIndentLang, l:t) > 0
@@ -21,14 +31,6 @@ function s:set_indent()
   endif
   if count(s:tabIndentLang, l:t) > 0
     setlocal noexpandtab
-  endif
-  " foldmethod 是窗口级选项, 离开对应文件类型后需复位
-  " diff 模式由 :diffthis 设为 diff, 切换窗口触发 BufEnter 时不得覆盖
-  if !&diff
-    setlocal foldmethod=marker
-    if count(s:foldByIndentLang, l:t) > 0
-      setlocal foldmethod=indent
-    endif
   endif
 endfunction
 
@@ -65,7 +67,9 @@ endfunction
 augroup custom_autocmds
   autocmd!
   " BufEnter 而非 FileType: colorcolumn/winwidth 是窗口级, 换窗口时需重新应用
-  autocmd BufEnter * call s:set_indent() | call s:set_colorcolumn()
+  " foldmethod 复位需在 FileType 登记之后, 加载顺序上 FileType 先于 BufEnter
+  autocmd FileType * call s:set_fold_wanted()
+  autocmd BufEnter * call s:set_fold() | call s:set_indent() | call s:set_colorcolumn()
   autocmd BufWritePost * call autocmd#diagnostic_refresh()
 augroup END
 
