@@ -35,6 +35,9 @@ end
 -- 启动 lazy.nvim
 function M:setup()
   require('lazy').setup(self.specs, opts)
+  -- lazy 会把插件路径排到用户配置之前, 使 queries/ 下的用户查询被插件默认版遮蔽
+  -- (rtp 中第一个不带 ; extends 的文件为生效查询, 其余丢弃), 置顶恢复标准覆盖顺序
+  vim.opt.rtp:prepend(vim.fn.stdpath('config'))
 end
 
 return M
