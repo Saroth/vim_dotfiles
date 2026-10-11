@@ -8,6 +8,7 @@ local opts = {
     java = false,
   },
   disable_filetype = { 'TelescopePrompt', 'spectre_panel' },
+  map_cr = false, -- <CR> 归 coc 补全确认; autopairs 只认原生 pum, 会覆盖 coc 映射
   fast_wrap = {
     map = '<M-e>', -- Alt+e 快速包裹
     chars = { '{', '[', '(', '"', "'" },
