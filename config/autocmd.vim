@@ -6,10 +6,10 @@ let s:shortIndentLang = [
       \ 'vue', 'html', 'javascript',
       \ 'ts', 'tsx', 'typescriptreact',
       \ 'css', 'less', 'scss', 'sass',
-      \ 'go', 'python', 'vim'
+      \ 'go', 'vim'
       \ ]
-" 强制使用tab缩进的语言
-let s:tabIndentLang = ['go', 'python']
+" 强制使用tab缩进的语言. python 不在此列: PEP8 为4空格, 交由 ftplugin 默认
+let s:tabIndentLang = ['go']
 " 基于缩进折叠的语言
 let s:foldByIndentLang = ['python']
 " FileType 时登记本 buffer 的 foldmethod 意图: marker 默认, 例外见 s:foldByIndentLang
